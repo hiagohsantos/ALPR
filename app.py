@@ -15,7 +15,7 @@ def tempo() -> None:
 # Criaçao da janela raiz
 root = ctk.CTk()
 root.title("ALPR")
-root.geometry('1024x768')
+root.geometry('900x800')
 root.resizable(False, False)
 ctk.set_appearance_mode("dark")
 
@@ -37,9 +37,21 @@ frame2 = ctk.CTkFrame(root,
                      fg_color = '#343436',
                      )
 frame2.place(in_ = root,
-             x = 700,
+             x = 690,
              y = 20,
              )
+
+frame3 = ctk.CTkFrame(root,
+                     width = 870,
+                     height = 200,
+                     fg_color = '#343436',
+                     )
+frame3.place(in_ = root,
+             x = 20,
+             y = 580,
+             )
+
+
 
 # Criaçao do botao 1
 btn1 = ctk.CTkButton(frame2,
@@ -47,14 +59,25 @@ btn1 = ctk.CTkButton(frame2,
                     width= 180,
                     height= 50,
                     command=lambda: tempo(),
-                    font = ctk.CTkFont(size = 30),
+                    font = ctk.CTkFont(size = 20),
 
                     )
 
 btn1.place(in_ = frame2,
            x = 10,
-           y= 20,
+           y = 20,
           )
+
+btn2 = ctk.CTkSwitch(frame,
+                     text = '',
+                     switch_width = 50,
+                     switch_height = 25,
+                     )
+btn2.place(in_ = frame,
+           x = 600,
+           y = 10,
+           )
+
 
 ctk.CTkLabel(frame, text = 'Câmera',font = ctk.CTkFont(size = 20)).place(in_=frame,
                                            relx = 0.45,
