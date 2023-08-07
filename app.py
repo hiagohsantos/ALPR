@@ -73,7 +73,7 @@ videoCam.place(in_ = frame,
                )
 
 #image1 = Image.open("modelPlate.jpeg")
-image1 = cv2.imread("modelPlate.jpeg")
+image1 = cv2.imread("images/modelPlate.jpeg")
 image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2RGBA)
 image1= cv2.resize(image1,(150,50),interpolation = cv2.INTER_AREA)
 image1 = Image.fromarray(image1)
