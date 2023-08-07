@@ -69,6 +69,7 @@ def detect(image: np.ndarray) -> processor.DetectionResult:
 def segImage(image: np.ndarray, detection_result: processor.DetectionResult) -> np.ndarray:
   aux = 0
   x1, x2, y1, y2 = 0, 0, 0, 0
+  
  
 
   for detection in detection_result.detections:
@@ -84,10 +85,11 @@ def segImage(image: np.ndarray, detection_result: processor.DetectionResult) -> 
 
       aux = probability
 
-  print(f'Coordenadas-> X1:{x1}, X2: {x2}, Y1: {y1}, Y2: {y2}')
+  text = f'X1:{x1}, X2: {x2}\n Y1: {y1}, Y2: {y2}'
+
   image = image[y1:y2, x1:x2] 
 
-  return image
+  return image, text
 
 
 # Mostra a imagem com as caixas de detecçao desenhadas
