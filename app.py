@@ -95,6 +95,7 @@ btn2 = ctk.CTkSwitch(frame,
                      offvalue = 'off',
                      )
 btn2.place(in_ = frame,
+           
            x = 600,
            y = 10,
            )
