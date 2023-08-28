@@ -1,10 +1,22 @@
 import easyocr
-import PIL
-from PIL import ImageDraw
+
 
 reader = easyocr.Reader(['en'])
 
 
-im = PIL.Image.open("img.jpeg")
 
-bounds = reader.readtext(im)
+def characterDetection(image)-> str:
+    return reader.readtext(image)
+
+
+
+
+if __name__ == '__main__':
+
+    import PIL
+    im = PIL.Image.open("/images/modelPlate.jpeg")
+
+    print(characterDetection(im))
+
+
+
