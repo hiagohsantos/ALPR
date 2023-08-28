@@ -3,6 +3,7 @@ from PIL import Image
 import cv2
 import time
 import detect1
+import easyOcr
 
 
 startTimeRec = 0
@@ -95,7 +96,6 @@ btn2 = ctk.CTkSwitch(frame,
                      offvalue = 'off',
                      )
 btn2.place(in_ = frame,
-           
            x = 600,
            y = 10,
            )
