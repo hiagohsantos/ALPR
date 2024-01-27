@@ -2,7 +2,7 @@ import customtkinter as ctk
 from PIL import Image
 import cv2
 import time
-import detect1
+import src.detect1 as detect1
 #import easyOcr
 
 
