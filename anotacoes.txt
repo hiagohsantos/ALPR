@@ -1,0 +1,14 @@
+--> Ate o momento a fragmentacao da imagem esta funcionando, falta apenas melhorar os modelos,
+     vou verificar se o treinamento no coolab voltou a funcionar(estava com um bug com versao do python e a versao da biblioteca da tensorflow)
+
+--> Tenho que adicionar alguns tratamentos na imagem que foi fragmentada, filtros, ajustar a orientaçao, etc.
+
+--> Descobri uma nova API da google chamada Vision AI, fiz um teste com a imagem fragmentada é ela é muito boa, talvez eu use ela para comparar com os resultados embarcados.
+
+--> Se continuar com a ideia totalmente embarcada, ainda tenho que escolher qual modelo de OCR utilizarei, os mais promissores sao:
+    -> TesseractOCR: cheguei a testar mas nao estava acertando muita coisa, acho que é necessario fazer um tratamento na imagem antes, no entanto é a mais leve de todas.
+    -> EasyOCR: testei no coolab, tem uma boa acuracia, nao cheguei a testar no rasp por conta de incompatibilidade, voltarei a tentar.
+    -> Encontrei a API do google chamada Vision AI, coloquei uma imagem bem ruim e ela acertou todos os caracteres bem rapido.
+
+--> 
+

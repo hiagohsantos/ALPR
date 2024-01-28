@@ -1,0 +1,13 @@
+
+--> RaspBerry
+        -> Usuario: pi
+        -> Senha: 123
+        -> Caminho: pi@raspberrypi
+
+
+-> Ambiente virtual:
+        -> Criacao: python3 -m venv nome_ambiente
+        -> Instalacao dos pacotes: pip install -r requirements.txt
+        -> Ativacao: source nome_ambiente/bin/activate
+        -
+

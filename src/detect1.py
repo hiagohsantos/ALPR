@@ -8,7 +8,7 @@ import sys
 
 # Initialize the object detection model
 base_options = core.BaseOptions(
-    file_name='modelo_EL0_AP53.tflite', use_coral=False, num_threads=4)
+    file_name='../Models/modelo_EL0_AP53.tflite', use_coral=False, num_threads=4)
 detection_options = processor.DetectionOptions(
     max_results=1, score_threshold=0.3)
 options = vision.ObjectDetectorOptions(

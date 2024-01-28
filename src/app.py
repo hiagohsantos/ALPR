@@ -2,9 +2,10 @@ import customtkinter as ctk
 from PIL import Image
 import cv2
 import time
-import src.detect1 as detect1
+import detect1 as detect1
 #import easyOcr
 
+root = ctk.CTk()
 
 startTimeRec = 0
 startTimeProgress = 0
@@ -16,9 +17,12 @@ def tempo() -> None:
    startTimeRec = int(time.time()) 
    progress = 0
 
+def tk_image(imagem, x, y):
+    imagem = Image.fromarray(imagem)
+    return  ctk.CTkImage(light_image=imagem, dark_image=imagem, size =(x, y))
 
 # Criaçao da janela raiz
-root = ctk.CTk()
+
 root.title("ALPR")
 root.geometry('900x800+100+100')
 root.resizable(False, False)
@@ -114,20 +118,72 @@ textStatus.place(in_ = frame2,
               x = 10,
               y = 150)
 
-# imagem de bacground da placa segmentada
-image1 = cv2.imread("images/modelPlate.jpeg")
-image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2RGBA)
-image1= cv2.resize(image1,(150,50),interpolation = cv2.INTER_AREA)
-image1 = Image.fromarray(image1)
+# Importanto e tratando a imagem modelo
+imagem_modelo = cv2.cvtColor(cv2.imread("../images/modelPlate.jpeg"), cv2.COLOR_BGR2RGBA)
+placa_modelo = Image.fromarray(cv2.resize(imagem_modelo,(150,50),interpolation = cv2.INTER_AREA))
 
-ctk.CTkLabel(frame2, text = 'Imagem Segmentada',font = ctk.CTkFont(size = 12)).place(in_ = frame2, x = 10 ,y = 420)
-image1 = ctk.CTkImage(light_image=image1, dark_image=image1, size =(150,50))
-placa = ctk.CTkLabel(frame2, image=image1, text='')
-placa.place(in_ = frame2,
-            x = 25,
-            y = 450,
-            )
+# Tornando a imagem modelo em um objeto da Tkinter
+placa_modelo = ctk.CTkImage(light_image=placa_modelo, dark_image=placa_modelo, size =(150,50))
 
+# Placa segmentada
+ctk.CTkLabel(frame2, text = 'Imagem Segmentada',font = ctk.CTkFont(size = 12)).place(in_ = frame2, x = 10 ,y = 180)
+placa_segmentada = ctk.CTkLabel(frame2, image = placa_modelo, text = '')
+placa_segmentada.place(in_ = frame2, x = 25, y = 210)
+
+# Placa Limiarizada
+ctk.CTkLabel(frame2, text = 'Imagem Limiarizada', font = ctk.CTkFont(size = 12)).place(in_ = frame2, x = 10 ,y = 270)
+placa_limiarizada = ctk.CTkLabel(frame2, image=placa_modelo, text='')
+placa_limiarizada.place(in_ = frame2, x = 25, y = 300)
+
+# Placa Reorientada
+ctk.CTkLabel(frame2, text = 'Imagem Reorientada', font = ctk.CTkFont(size = 12)).place(in_ = frame2, x = 10 ,y = 360)
+placa_reorientada = ctk.CTkLabel(frame2, image=placa_modelo, text='')
+placa_reorientada.place(in_ = frame2, x = 25, y = 390)
+
+
+def processa_imagem(imagem):
+    # Converta a imagem para escala de cinza
+    imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
+
+    # Aplique uma operação de limiarização para destacar os contornos
+
+    #_, imagem_limiarizada = cv2.threshold(imagem_cinza, 128, 255, cv2.THRESH_BINARY)
+    #imagem_limiarizada  = cv2.adaptiveThreshold(imagem_cinza,255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,11,2)
+    imagem_limiarizada  = cv2.adaptiveThreshold(imagem_cinza,255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2)
+    placa_limiarizada.configure(image=tk_image(imagem_limiarizada,150, 50))
+
+    # Encontre os contornos na imagem limiarizada
+    contornos, _ = cv2.findContours(imagem_limiarizada, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    #contornos, _ = cv2.findContours(imagem_limiarizada, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+
+    # Encontre o maior contorno (presumivelmente a placa do veículo)
+    maior_contorno = max(contornos, key=cv2.contourArea)
+    
+    # Aplique a caixa delimitadora mínima para obter a inclinação
+    retangulo = cv2.minAreaRect(maior_contorno)
+    
+    # Obtenha o ângulo de inclinação
+    angulo_inclinacao = retangulo[-1]
+
+    if (angulo_inclinacao > 45 ):
+         angulo_inclinacao -= 90
+      
+    # Rotacione a imagem para corrigir a inclinação
+    altura, largura = imagem.shape[:2]
+    matriz_rotacao = cv2.getRotationMatrix2D((largura / 2, altura / 2), angulo_inclinacao , 1)
+    imagem_corrigida = cv2.warpAffine(imagem, matriz_rotacao, (largura, altura), flags=cv2.INTER_NEAREST)
+    placa_reorientada.configure(image=tk_image(imagem_corrigida,150, 50))
+    
+    # # Desenhar contornos na imagem original
+    # imagem_contornos = imagem.copy()
+    # cv2.drawContours(imagem_contornos, [maior_contorno], -1, (0, 255, 0), 2)
+    
+    # # Desenhar a caixa delimitadora mínima na imagem original
+    # imagem_caixa = imagem.copy()
+    # pontos_caixa = cv2.boxPoints(retangulo).astype(int)
+    # cv2.drawContours(imagem_caixa, [pontos_caixa], 0, (0, 0, 255), 2)
+    
 
 def video():
     global startTimeProgress, progress
@@ -135,7 +191,7 @@ def video():
     
     # Inicia a detecçao com duraçao de 'decTime'
     if (startTimeRec + decTime) >= int(time.time()):
-
+      
       # verificaçao para incrementar a barra de progresso
       if int(time.time()) > startTimeProgress:
         progress += 100/decTime
@@ -152,19 +208,16 @@ def video():
         # Segmenta a imagem e redimensiona para 150x50 px
         segImage, text = detect1.segImage(imgCam.copy(), result)
         textStatus.configure(text=text)
-        segImageRGB = cv2.resize(segImage,(150,50),interpolation = cv2.INTER_AREA)
+        segImageRGB = cv2.resize(segImage,(150,50), interpolation = cv2.INTER_AREA)
 
-        # Altera a imagem no label da placa
-        imgSeg = Image.fromarray(segImageRGB)
-        segImgtk = ctk.CTkImage(light_image=imgSeg,
-                                dark_image=imgSeg,
-                                size =(150,50),
-                                )
-        placa.configure(image=segImgtk)
-
+        # substitui a imagem modelo pela imagem segmentada
+        placa_segmentada.configure(image=tk_image(segImageRGB,150, 50))
+        processa_imagem(segImageRGB)
         # Troca a imagem da camera para a imagem com o retangulo de detecçao
         img = detect1.visualize(imgCam, result)
-        
+
+      
+     
     if switch_var.get() == 'on':
 
       # Altera a imagem no label do video
