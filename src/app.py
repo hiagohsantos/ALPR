@@ -120,7 +120,7 @@ textStatus.place(in_ = frame2,
 
 # Importanto e tratando a imagem modelo
 imagem_modelo = cv2.cvtColor(cv2.imread("../images/modelPlate.jpeg"), cv2.COLOR_BGR2RGBA)
-placa_modelo = Image.fromarray(cv2.resize(imagem_modelo,(150,50),interpolation = cv2.INTER_AREA))
+placa_modelo = Image.fromarray(cv2.resize(imagem_modelo,(150,50), interpolation = cv2.INTER_AREA))
 
 # Tornando a imagem modelo em um objeto da Tkinter
 placa_modelo = ctk.CTkImage(light_image=placa_modelo, dark_image=placa_modelo, size =(150,50))
@@ -229,7 +229,7 @@ def video():
                           )     
       videoCam.configure(image = imgtk)
     else: 
-      imgbck = cv2.imread("images/camBackground.jpg")
+      imgbck = cv2.imread("../images/camBackground.jpg")
       imgbck = cv2.cvtColor(imgbck, cv2.COLOR_BGR2RGBA)
       imgbck = Image.fromarray(imgbck)
       imgbck = ctk.CTkImage(light_image = imgbck, dark_image = imgbck, size=(640, 480))

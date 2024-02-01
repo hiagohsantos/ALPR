@@ -30,9 +30,8 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 counter, fps = 0, 0
 start_time = time.time()
 
-def capture()-> np.ndarray:
+def capture() -> np.ndarray:
   global counter, start_time, fps
-
   counter += 1
   success, image = cap.read()
   if not success:
@@ -51,7 +50,6 @@ def capture()-> np.ndarray:
   text_location = (24, 20)
   cv2.putText(image, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1) 
   image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-  
   return image
 
 
@@ -70,8 +68,6 @@ def segImage(image: np.ndarray, detection_result: processor.DetectionResult) -> 
   aux = 0
   x1, x2, y1, y2 = 0, 0, 0, 0
   
- 
-
   for detection in detection_result.detections:
     bbox = detection.bounding_box
     category = detection.categories[0]
