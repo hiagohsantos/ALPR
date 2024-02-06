@@ -215,7 +215,7 @@ class ALPRapp:
                 # Troca a imagem da camera para a imagem com o retangulo de detecçao
                 img = detect1.visualize(imgCam, result)
 
-        if self.switch_var.get() == "on":
+        if self.switch_variable.get() == "on":
             # Altera a imagem no label do video
             img = imgCam
             img = Image.fromarray(img)
