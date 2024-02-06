@@ -2,7 +2,7 @@ import customtkinter as ctk
 from PIL import Image
 import cv2
 import time
-import detect1 as detect1
+from utils import utils
 
 ctk.set_appearance_mode("dark")
 
@@ -17,8 +17,15 @@ class ALPRapp:
         self.root.title("ALPR")
         self.root.geometry("900x800+100+100")
         self.root.resizable(False, False)
-        self.create_widgets()
+
+        self.create_frames()
+        self.create_cam_components()
+        self.create_menu_components()
+
         self.video()
+
+    def __del__(self):
+        pass
 
     def capture_timer(self) -> None:
         self.startTimeRec = int(time.time())
@@ -203,8 +210,7 @@ class ALPRapp:
 
     def video(self):
 
-        imgCam = detect1.capture()
-
+        imgCam = utils.capture()
         # Inicia a detecçao com duraçao de 'decTime'
         if (self.startTimeRec + self.decTime) >= int(time.time()):
 
@@ -216,13 +222,13 @@ class ALPRapp:
                 self.startTimeProgress = int(time.time())
 
             # Inicia a detecçao de objetos
-            result = detect1.detect(imgCam)
+            result = utils.detect(imgCam)
 
             if result.detections == []:
                 self.textStatus.configure(text="Nada encontrado!")
             else:
                 # Segmenta a imagem e redimensiona para 150x50 px
-                segImage, text = detect1.segImage(imgCam.copy(), result)
+                segImage, text = utils.segImage(imgCam.copy(), result)
                 self.textStatus.configure(text=text)
                 segImageRGB = cv2.resize(
                     segImage, (150, 50), interpolation=cv2.INTER_AREA
@@ -234,7 +240,7 @@ class ALPRapp:
                 )
                 # processa_imagem(segImageRGB)
                 # Troca a imagem da camera para a imagem com o retangulo de detecçao
-                img = detect1.visualize(imgCam, result)
+                img = utils.visualize(imgCam, result)
 
         if self.switch_variable.get() == "on":
             # Altera a imagem no label do video
@@ -247,14 +253,15 @@ class ALPRapp:
             )
             self.videoCam.configure(image=imgtk)
         else:
-            imgbck = cv2.imread("../images/camBackground.jpg")
-            imgbck = cv2.cvtColor(imgbck, cv2.COLOR_BGR2RGBA)
-            imgbck = Image.fromarray(imgbck)
+            imgbck = Image.fromarray(
+                cv2.cvtColor(
+                    cv2.imread("../images/camBackground.jpg"), cv2.COLOR_BGR2RGBA
+                )
+            )
             imgbck = ctk.CTkImage(
                 light_image=imgbck, dark_image=imgbck, size=(640, 480)
             )
             self.videoCam.configure(image=imgbck)
-
         self.videoCam.after(1, self.video)
 
     def run(self):
