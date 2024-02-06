@@ -5,6 +5,8 @@ import time
 import detect1 as detect1
 #import easyOcr
 
+
+
 root = ctk.CTk()
 
 startTimeRec = 0

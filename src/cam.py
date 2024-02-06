@@ -60,18 +60,15 @@ class CameraApp(tk.Tk):
             cv2.putText(frame_rgb, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1)
 
             # Atualiza a imagem exibida
-            self.update_image(frame_rgb)
+            self.photo = ImageTk.PhotoImage(Image.fromarray(frame_rgb))
 
-    def update_image(self, image):
-        # Converte a imagem para o formato TK PhotoImage
-        self.photo = ImageTk.PhotoImage(Image.fromarray(image))
+            # Atualiza o rótulo com a nova imagem
+            self.label.config(image=self.photo)
+            self.label.image = self.photo
 
-        # Atualiza o rótulo com a nova imagem
-        self.label.config(image=self.photo)
-        self.label.image = self.photo
+            # Agende a próxima chamada para capturar
+            self.after(10, self.capture)
 
-        # Agende a próxima chamada para capturar
-        self.after(10, self.capture)
 
     def __del__(self):
         # Libera os recursos da câmera quando a janela for destruída
