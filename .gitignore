@@ -2,3 +2,4 @@ __pycache__/
 envALPR/
 pacotes.txt/
 Dataset/
+.venv/
