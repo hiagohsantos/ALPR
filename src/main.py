@@ -123,20 +123,20 @@ class ALPRapp:
         ctk.CTkLabel(
             self.menu_frame, text="Imagem Segmentada", font=ctk.CTkFont(size=12)
         ).place(in_=self.menu_frame, x=10, y=180)
-        segmented_plate = ctk.CTkLabel(self.menu_frame, image=model_plate, text="")
-        segmented_plate.place(in_=self.menu_frame, x=25, y=210)
+        self.segmented_plate = ctk.CTkLabel(self.menu_frame, image=model_plate, text="")
+        self.segmented_plate.place(in_=self.menu_frame, x=25, y=210)
 
         ctk.CTkLabel(
             self.menu_frame, text="Imagem Limiarizada", font=ctk.CTkFont(size=12)
         ).place(in_=self.menu_frame, x=10, y=270)
-        thresholded_plate = ctk.CTkLabel(self.menu_frame, image=model_plate, text="")
-        thresholded_plate.place(in_=self.menu_frame, x=25, y=300)
+        self.thresholded_plate = ctk.CTkLabel(self.menu_frame, image=model_plate, text="")
+        self.thresholded_plate.place(in_=self.menu_frame, x=25, y=300)
 
         ctk.CTkLabel(
             self.menu_frame, text="Imagem Reorientada", font=ctk.CTkFont(size=12)
         ).place(in_=self.menu_frame, x=10, y=360)
-        reoriented_plate = ctk.CTkLabel(self.menu_frame, image=model_plate, text="")
-        reoriented_plate.place(in_=self.menu_frame, x=25, y=390)
+        self.reoriented_plate = ctk.CTkLabel(self.menu_frame, image=model_plate, text="")
+        self.reoriented_plate.place(in_=self.menu_frame, x=25, y=390)
 
         # def processa_imagem(imagem):
         #     # Converta a imagem para escala de cinza
