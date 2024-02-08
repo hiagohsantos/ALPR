@@ -103,8 +103,6 @@ class ALPRapp:
             self.videoCam = ctk.CTkLabel(
                 self.cam_frame, text="", width=640, height=480, fg_color="#3c3c3d"
             )
-            
-
             self.switch_variable = ctk.StringVar(value="on")
             self.cam_switch = ctk.CTkSwitch(
                 self.cam_frame,
@@ -153,33 +151,43 @@ class ALPRapp:
         
             # Segmented Plate Label
             ctk.CTkLabel(
-                self.menu_frame, text="Imagem Segmentada", font=ctk.CTkFont(size=12),
-            ).place(in_=self.menu_frame, x=10, y=180)
+                self.botton_frame, text="Imagem original", font=ctk.CTkFont(size=12),
+            ).place(in_=self.botton_frame, x=20, y=5)
 
             self.segmented_plate = ctk.CTkLabel(
-                self.menu_frame, text="",  image=self.model_plate ,
+                self.botton_frame, text="",  image=self.model_plate ,
             )
-          
             self.segmented_plate = ctk.CTkLabel(
-                self.menu_frame, text="",  bg_color="#3c3c3d", width=150, height =50
+                self.botton_frame, text="",  bg_color="#3c3c3d", width=150, height =50
             )
 
             ctk.CTkLabel(
-                self.menu_frame, text="Imagem Limiarizada", font=ctk.CTkFont(size=12)
-            ).place(in_=self.menu_frame, x=10, y=270)
+                self.botton_frame, text="Limiarizacão", font=ctk.CTkFont(size=12)
+            ).place(in_=self.botton_frame, x=220, y=5)
 
             self.thresholded_plate = ctk.CTkLabel(
-                self.menu_frame, text="", bg_color="#3c3c3d", width=150, height =50 
+                self.botton_frame, text="", bg_color="#3c3c3d", width=150, height =50 
             )
             ctk.CTkLabel(
-                self.menu_frame, text="Imagem Reorientada", font=ctk.CTkFont(size=12)
-            ).place(in_=self.menu_frame, x=10, y=360)
+                self.botton_frame, text="Reorientação", font=ctk.CTkFont(size=12)
+            ).place(in_=self.botton_frame, x=420, y=5)
 
             self.reoriented_plate = ctk.CTkLabel(
-                self.menu_frame,  text="",  bg_color="#3c3c3d", width=150, height =50   
+                self.botton_frame,  text="",  bg_color="#3c3c3d", width=150, height =50   
             )
+
+            ctk.CTkLabel(
+                self.botton_frame, text="", width=2, height=190, fg_color= "#575759"
+            ).place(in_=self.botton_frame, x=190, y=5)
+
+            ctk.CTkLabel(
+                self.botton_frame, text="", width=2, height=190, fg_color= "#575759"
+            ).place(in_=self.botton_frame, x=390, y=5)
+
+            ctk.CTkLabel(
+                self.botton_frame, text="", width=2, height=190, fg_color= "#575759"
+            ).place(in_=self.botton_frame, x=590, y=5)
             
-           
         except Exception as e:
             print(f"Houve um problema ao criar os componentes do menu -> {e}")
             raise e
@@ -191,21 +199,23 @@ class ALPRapp:
             self.cam_switch.place(in_=self.cam_frame, x=600, y=10)
 
             self.start_button.place(in_=self.menu_frame, x=10, y=20)
-            self.progressbar.place(in_=self.menu_frame, x=10, y=100)
+            #self.progressbar.place(in_=self.menu_frame, x=10, y=100)
             self.textStatus.place(in_=self.menu_frame, x=10, y=150)
-            self.segmented_plate.place(in_=self.menu_frame, x=25, y=210)
-            self.thresholded_plate.place(in_=self.menu_frame, x=25, y=300)
-            self.reoriented_plate.place(in_=self.menu_frame, x=25, y=390)
+
+            self.segmented_plate.place(in_=self.botton_frame, x=20, y=60)
+            self.thresholded_plate.place(in_=self.botton_frame, x=220, y=30)
+            self.reoriented_plate.place(in_=self.botton_frame, x=420, y=30)
         except Exception as e:
             print(f"Falha ao colocar os componentes. {e}")
 
     def image_processing(self, image):
-        # Converta a imagem para escala de cinza
+        # Gray image
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # Aplique uma operação de limiarização para destacar os contornos
         #_, imagem_limiarizada = cv2.threshold(imagem_cinza, 128, 255, cv2.THRESH_BINARY)
         #imagem_limiarizada  = cv2.adaptiveThreshold(imagem_cinza,255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,11,2)
         thresholded_image  = cv2.adaptiveThreshold(gray_image , 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+
         self.thresholded_plate.configure(image=self.tk_image(thresholded_image,150, 50))
         # Encontre os contornos na imagem limiarizada
         contours, _ = cv2.findContours(thresholded_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)

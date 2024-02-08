@@ -39,25 +39,18 @@ def capture() :
     global counter, start_time, fps
     counter += 1
     success, image = cap.read()
-    if not success:
-        sys.exit(
-            "ERROR: Unable to read from webcam. Please verify your webcam settings."
-        )
-
+    # if not success:
+    #     sys.exit(
+    #         "ERROR: Unable to read from webcam. Please verify your webcam settings."
+    #     )
     #image = cv2.flip(image, -1)
-
     # Calcula o FPS
     if counter % 10 == 0:
         end_time = time.time()
         fps = 10 / (end_time - start_time)
         start_time = end_time
-
-    # Exibe o  FPS
     fps_text = "{:.1f} fps".format(fps)
-    # text_location = (24, 20)
-    # cv2.putText(
-    #     image, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1
-    # )
+
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     return image, fps_text 
 
@@ -134,8 +127,15 @@ def visualize(
             _TEXT_COLOR,
             _FONT_THICKNESS,
         )
-
     return image
+
+def tesseract_ocr(image: np.ndarray, config:str = "--oem 3 --psm 13") -> str:
+    try:
+        text =  pytesseract.image_to_string(image, config = config )
+        return text
+    except Exception as e:
+        print(f"Houve um erro ao fazer o OCR.{e}")
+
 
 
 if __name__ == "__main__":
@@ -143,12 +143,9 @@ if __name__ == "__main__":
         # Stop the program if the ESC key is pressed.
         if cv2.waitKey(1) == 27:
             break
-
         image = capture()
-
         options.detection_options.max_results = 3
         detector = vision.ObjectDetector.create_from_options(options)
-
         image = visualize(image, detect(image))
         cv2.imshow("object_detector", image)
 
