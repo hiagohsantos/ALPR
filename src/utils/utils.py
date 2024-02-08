@@ -35,7 +35,7 @@ counter, fps = 0, 0
 start_time = time.time()
 
 
-def capture() -> np.ndarray:
+def capture() :
     global counter, start_time, fps
     counter += 1
     success, image = cap.read()
@@ -44,22 +44,22 @@ def capture() -> np.ndarray:
             "ERROR: Unable to read from webcam. Please verify your webcam settings."
         )
 
-    image = cv2.flip(image, -1)
+    #image = cv2.flip(image, -1)
 
     # Calcula o FPS
     if counter % 10 == 0:
         end_time = time.time()
         fps = 10 / (end_time - start_time)
-        start_time = time.time()
+        start_time = end_time
 
     # Exibe o  FPS
     fps_text = "{:.1f} fps".format(fps)
-    text_location = (24, 20)
-    cv2.putText(
-        image, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1
-    )
+    # text_location = (24, 20)
+    # cv2.putText(
+    #     image, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1
+    # )
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    return image
+    return image, fps_text 
 
 
 # Processa a imagem e devolve um resultado de detecçao

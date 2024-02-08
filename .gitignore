@@ -3,3 +3,5 @@ envALPR/
 pacotes.txt/
 Dataset/
 .venv/
+src/__pycache__/
+captures/
