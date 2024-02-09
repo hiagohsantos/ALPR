@@ -131,12 +131,69 @@ def visualize(
 
 def tesseract_ocr(image: np.ndarray, config:str = "--oem 3 --psm 13") -> str:
     try:
-        text =  pytesseract.image_to_string(image, config = config )
+        img = image.copy()
+        text =  pytesseract.image_to_string(img, config = config )
         return text
+
     except Exception as e:
         print(f"Houve um erro ao fazer o OCR.{e}")
 
+def threshold_image(image, filter_type: int, thresh: int = 127):
+    try:
+        img = image.copy()
+        if (filter_type > 0 or filter_type < 4):
+            if(filter_type == 1):
+                # Limiarizacao normal (FIXA)
+                _, thresholded_image = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
+            elif(filter_type == 2):
+                # Limiarizacao dinamica Filtro de media
+                thresholded_image  = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+            elif(filter_type == 3):
+                # Limiarizacao dinamica Filtro Gaussiano
+                thresholded_image  = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+            return thresholded_image
+        else:
+            raise ValueError("O tipo de filtro varia de 1 a 3.")
 
+    except Exception as e:
+        print(f"Houve um problema ao limiarizar imagem. {e}")
+        raise e
+
+def find_tilt_angle(image):
+    try:    
+        img = image.copy()
+        # Copie a imagem limiarizada para os canais R, G e B
+        img_color = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+
+        contours, _ = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        outer_contour = max(contours, key= cv2.contourArea)
+ 
+        rectangle = cv2.minAreaRect(outer_contour)
+
+        cv2.drawContours(img_color, [cv2.boxPoints(rectangle).astype(int)], 0, (0, 255, 0), 2)
+        #cv2.drawContours(img_color, [outer_contour], -1, (0, 255, 0), 4)
+
+        tilt_angle = rectangle[-1]
+        if (tilt_angle > 45 ):
+            tilt_angle -= 90
+
+        return img_color, tilt_angle
+
+    except Exception as e:
+        print(f"Houve um problema ao encontrar os contornos na imagem. {e}")
+        raise e
+
+def rotate_image(image, tilt_angle):
+    try: 
+        img = image.copy()
+        height, width = img.shape[:2]
+        rotation_matrix = cv2.getRotationMatrix2D((width / 2, height / 2), tilt_angle , 1)
+        reoriented_image = cv2.warpAffine(img, rotation_matrix, (width, height), flags=cv2.INTER_NEAREST)
+        return reoriented_image
+
+    except Exception as e:
+        print(f"Houve um problema rotacionar imagem. {e}")
+        raise e
 
 if __name__ == "__main__":
     while 1:
