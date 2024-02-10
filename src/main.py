@@ -5,6 +5,7 @@ import time
 from utils import utils
 import concurrent.futures
 import re
+import numpy as np
 
 ctk.set_appearance_mode("dark")
 
@@ -165,6 +166,7 @@ class ALPRapp:
             ocr_type = ctk.CTkLabel(
                 self.menu_frame, text="Tipo de OCR", font=ctk.CTkFont(size=12)
             ).place(in_=self.menu_frame, x=10, y=260)
+
             
             self.textStatus = ctk.CTkLabel(
                 self.menu_frame, text="", fg_color="#3c3c3d", width=180, height=30
@@ -227,6 +229,14 @@ class ALPRapp:
                 self.botton_frame,  text="",  bg_color="#3c3c3d", width=150, height =50   
             )
 
+            ctk.CTkLabel(
+                self.botton_frame, text="Resultado do OCR", font=ctk.CTkFont(size=12)
+            ).place(in_=self.botton_frame, x=620, y=5)
+
+            self.ocr_result = ctk.CTkLabel(
+                self.botton_frame,  text="ABC2134", font=ctk.CTkFont(size=26), bg_color="#3c3c3d", width=150, height =50   
+            )
+
         except Exception as e:
             print("Houve um problema ao criar os componentes do frame base")
             raise e
@@ -253,6 +263,7 @@ class ALPRapp:
             self.thresholded_plate.place(in_=self.botton_frame, x=220, y=40)
             self.rectangle_plate.place(in_=self.botton_frame, x=220, y=120)
             self.reoriented_plate.place(in_=self.botton_frame, x=420, y=40)
+            self.ocr_result.place(in_=self.botton_frame, x=620, y=40)
 
         except Exception as e:
             print(f"Falha ao colocar os componentes. {e}")
@@ -260,8 +271,14 @@ class ALPRapp:
 
     def starts_asynchronous_ocr(self, image):
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            future = executor.submit(utils.tesseract_ocr, image)
-            result = future.result()
+            if self.ocr_type.get() == 1: 
+                future_ocr_text = executor.submit(utils.ocr_goole_cloud, image)
+            elif self.ocr_type.get() == 2: 
+                future_ocr_text = executor.submit(utils.tesseract_ocr, image)
+
+            ocr_text = future_ocr_text.result()
+            self.ocr_result.configure(text = ocr_text)
+
 
     def starts_asynchronous_processing(self, image):
         with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -270,13 +287,22 @@ class ALPRapp:
             self.thresholded_plate.configure(image=self.tk_image(thresholded_image, 150, 50))
 
             future_image_contourns = executor.submit(utils.find_tilt_angle, thresholded_image)
-            image_contourns, tilt_angle = future_image_contourns.result()
+            image_contourns, tilt_angle, rectangle = future_image_contourns.result()
             self.rectangle_plate.configure(image=self.tk_image(image_contourns, 150, 50))
 
-            future_reoriented_image = executor.submit(utils.rotate_image, thresholded_image, tilt_angle)
+            box = cv2.boxPoints(rectangle).astype(int)
+            box = np.intp(box)
+
+            # Recorta a região dentro do retângulo
+            min_x, min_y = np.min(box, axis=0)
+            max_x, max_y = np.max(box, axis=0)
+            cropped_image = thresholded_image[min_y:max_y, min_x:max_x]
+
+            future_reoriented_image = executor.submit(utils.rotate_image, cropped_image, tilt_angle)
             reoriented_image = future_reoriented_image.result()
             self.reoriented_plate.configure(image=self.tk_image(reoriented_image,150, 50))
-
+            
+            self.starts_asynchronous_ocr(reoriented_image)
             
     def starts_asynchronous_detection(self, frame):
         with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -299,6 +325,7 @@ class ALPRapp:
                     image=self.tk_image(gray_image, 150, 50)
                 )
                 self.starts_asynchronous_processing(gray_image)
+
                 #self.starts_asynchronous_ocr(segImageRGB)
                 # Troca a imagem da camera para a imagem com o retangulo de detecçao
                 img = utils.visualize(frame, result)
@@ -308,8 +335,6 @@ class ALPRapp:
     def video(self):
         frame, fps = utils.capture()
         self.fps_cam.configure(text=fps)
-        # Inicia a detecçao com duraçao de 'decTime'
-        #if (self.startTimeRec + self.decTime) >= int(time.time()):
         if (self.detection):   
                 # Inicia a detecçao de objetos
                 self.starts_asynchronous_detection(frame)

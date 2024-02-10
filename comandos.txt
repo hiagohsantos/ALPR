@@ -15,6 +15,7 @@
         -> sudo dpkg --configure –a
         -> sudo apt-get install tesseract-ocr
         --> pip install pytesseract
+        
         -> Flags da TesseractOCR:
                 * Passar para a pytesseract como config = ""
                 -> Page segmentation modes:(--psm)
@@ -40,9 +41,6 @@
                 2    Legacy + LSTM engines.
                 3    Default, based on what is available.
 
-
--> Instalacao da pytesseract:
-        -> 
 
 -> Comando para monitoramento dos recursos: htop
 

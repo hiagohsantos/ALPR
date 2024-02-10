@@ -5,7 +5,17 @@ import numpy as np
 import cv2
 import time
 import sys
+import pytesseract
+import re
+import os
+from dotenv import load_dotenv
+import base64
+import requests
+import json
+from io import BytesIO
+from PIL import Image
 
+load_dotenv()
 
 _MARGIN = 10  # pixels
 _ROW_SIZE = 10  # pixels
@@ -133,7 +143,7 @@ def tesseract_ocr(image: np.ndarray, config:str = "--oem 3 --psm 13") -> str:
     try:
         img = image.copy()
         text =  pytesseract.image_to_string(img, config = config )
-        return text
+        return re.sub(r'[^a-zA-Z0-9]', '', text).upper()
 
     except Exception as e:
         print(f"Houve um erro ao fazer o OCR.{e}")
@@ -171,17 +181,18 @@ def find_tilt_angle(image):
         rectangle = cv2.minAreaRect(outer_contour)
 
         cv2.drawContours(img_color, [cv2.boxPoints(rectangle).astype(int)], 0, (0, 255, 0), 2)
-        #cv2.drawContours(img_color, [outer_contour], -1, (0, 255, 0), 4)
+        #cv2.drawContours(im+g_color, [outer_contour], -1, (0, 255, 0), 4)
 
         tilt_angle = rectangle[-1]
         if (tilt_angle > 45 ):
             tilt_angle -= 90
 
-        return img_color, tilt_angle
+        return img_color, tilt_angle, rectangle
 
     except Exception as e:
         print(f"Houve um problema ao encontrar os contornos na imagem. {e}")
         raise e
+
 
 def rotate_image(image, tilt_angle):
     try: 
@@ -194,6 +205,42 @@ def rotate_image(image, tilt_angle):
     except Exception as e:
         print(f"Houve um problema rotacionar imagem. {e}")
         raise e
+
+
+def ocr_goole_cloud(image) -> str:
+    api_url = os.getenv("GOOGLE_CLOUD_API_URL")+ f"?key={os.getenv('GOOGLE_CLOUD_API_KEY')}"
+
+    bytes_io = BytesIO()
+    imagem_pil = Image.fromarray(image.copy())
+    imagem_pil.save(bytes_io, format='PNG')
+    imagem_bytes = bytes_io.getvalue()
+    img_base64 = base64.b64encode(imagem_bytes).decode('utf-8')
+    
+    data = {
+        "requests": [
+            {
+                "image":{
+                    "content":  img_base64
+                    ,
+                },
+                "features": [
+                    {
+                    "type": "TEXT_DETECTION",
+                    }
+                ],
+                
+            }
+        ],
+
+    }
+
+    post_api = requests.post(url = api_url, data = json.dumps(data))
+    ocr_text = post_api.json()['responses'][0]['fullTextAnnotation']['text']
+
+    return re.sub(r'[^a-zA-Z0-9]', '', ocr_text).upper()
+    #print(post_api.json()['responses'][0]['textAnnotations'][0]['description'])
+
+
 
 if __name__ == "__main__":
     while 1:
@@ -208,3 +255,5 @@ if __name__ == "__main__":
 
     cap.release()
     cv2.destroyAllWindows()
+
+

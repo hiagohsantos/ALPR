@@ -5,3 +5,5 @@ Dataset/
 .venv/
 src/__pycache__/
 captures/
+
+.env
