@@ -45,7 +45,7 @@ counter, fps = 0, 0
 start_time = time.time()
 
 
-def capture() :
+def capture():
     global counter, start_time, fps
     counter += 1
     success, image = cap.read()
@@ -53,7 +53,7 @@ def capture() :
     #     sys.exit(
     #         "ERROR: Unable to read from webcam. Please verify your webcam settings."
     #     )
-    #image = cv2.flip(image, -1)
+    # image = cv2.flip(image, -1)
     # Calcula o FPS
     if counter % 10 == 0:
         end_time = time.time()
@@ -62,7 +62,7 @@ def capture() :
     fps_text = "{:.1f} fps".format(fps)
 
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    return image, fps_text 
+    return image, fps_text
 
 
 # Processa a imagem e devolve um resultado de detecçao
@@ -139,28 +139,36 @@ def visualize(
         )
     return image
 
-def tesseract_ocr(image: np.ndarray, config:str = "--oem 3 --psm 13") -> str:
+
+def tesseract_ocr(image: np.ndarray, config: str = "--oem 3 --psm 13") -> str:
     try:
         img = image.copy()
-        text =  pytesseract.image_to_string(img, config = config )
-        return re.sub(r'[^a-zA-Z0-9]', '', text).upper()
+        text = pytesseract.image_to_string(img, config=config)
+        return re.sub(r"[^a-zA-Z0-9]", "", text).upper()
 
     except Exception as e:
         print(f"Houve um erro ao fazer o OCR.{e}")
 
+
 def threshold_image(image, filter_type: int, thresh: int = 127):
     try:
         img = image.copy()
-        if (filter_type > 0 or filter_type < 4):
-            if(filter_type == 1):
+        if filter_type > 0 or filter_type < 4:
+            if filter_type == 1:
                 # Limiarizacao normal (FIXA)
-                _, thresholded_image = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
-            elif(filter_type == 2):
+                _, thresholded_image = cv2.threshold(
+                    img, thresh, 255, cv2.THRESH_BINARY
+                )
+            elif filter_type == 2:
                 # Limiarizacao dinamica Filtro de media
-                thresholded_image  = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
-            elif(filter_type == 3):
+                thresholded_image = cv2.adaptiveThreshold(
+                    img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2
+                )
+            elif filter_type == 3:
                 # Limiarizacao dinamica Filtro Gaussiano
-                thresholded_image  = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+                thresholded_image = cv2.adaptiveThreshold(
+                    img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
+                )
             return thresholded_image
         else:
             raise ValueError("O tipo de filtro varia de 1 a 3.")
@@ -169,22 +177,25 @@ def threshold_image(image, filter_type: int, thresh: int = 127):
         print(f"Houve um problema ao limiarizar imagem. {e}")
         raise e
 
+
 def find_tilt_angle(image):
-    try:    
+    try:
         img = image.copy()
         # Copie a imagem limiarizada para os canais R, G e B
         img_color = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 
         contours, _ = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        outer_contour = max(contours, key= cv2.contourArea)
- 
+        outer_contour = max(contours, key=cv2.contourArea)
+
         rectangle = cv2.minAreaRect(outer_contour)
 
-        cv2.drawContours(img_color, [cv2.boxPoints(rectangle).astype(int)], 0, (0, 255, 0), 2)
-        #cv2.drawContours(im+g_color, [outer_contour], -1, (0, 255, 0), 4)
+        cv2.drawContours(
+            img_color, [cv2.boxPoints(rectangle).astype(int)], 0, (0, 255, 0), 2
+        )
+        # cv2.drawContours(im+g_color, [outer_contour], -1, (0, 255, 0), 4)
 
         tilt_angle = rectangle[-1]
-        if (tilt_angle > 45 ):
+        if tilt_angle > 45:
             tilt_angle -= 90
 
         return img_color, tilt_angle, rectangle
@@ -195,11 +206,15 @@ def find_tilt_angle(image):
 
 
 def rotate_image(image, tilt_angle):
-    try: 
+    try:
         img = image.copy()
         height, width = img.shape[:2]
-        rotation_matrix = cv2.getRotationMatrix2D((width / 2, height / 2), tilt_angle , 1)
-        reoriented_image = cv2.warpAffine(img, rotation_matrix, (width, height), flags=cv2.INTER_NEAREST)
+        rotation_matrix = cv2.getRotationMatrix2D(
+            (width / 2, height / 2), tilt_angle, 1
+        )
+        reoriented_image = cv2.warpAffine(
+            img, rotation_matrix, (width, height), flags=cv2.INTER_NEAREST
+        )
         return reoriented_image
 
     except Exception as e:
@@ -208,38 +223,36 @@ def rotate_image(image, tilt_angle):
 
 
 def ocr_goole_cloud(image) -> str:
-    api_url = os.getenv("GOOGLE_CLOUD_API_URL")+ f"?key={os.getenv('GOOGLE_CLOUD_API_KEY')}"
+    api_url = (
+        os.getenv("GOOGLE_CLOUD_API_URL") + f"?key={os.getenv('GOOGLE_CLOUD_API_KEY')}"
+    )
 
     bytes_io = BytesIO()
     imagem_pil = Image.fromarray(image.copy())
-    imagem_pil.save(bytes_io, format='PNG')
+    imagem_pil.save(bytes_io, format="PNG")
     imagem_bytes = bytes_io.getvalue()
-    img_base64 = base64.b64encode(imagem_bytes).decode('utf-8')
-    
+    img_base64 = base64.b64encode(imagem_bytes).decode("utf-8")
+
     data = {
         "requests": [
             {
-                "image":{
-                    "content":  img_base64
-                    ,
+                "image": {
+                    "content": img_base64,
                 },
                 "features": [
                     {
-                    "type": "TEXT_DETECTION",
+                        "type": "TEXT_DETECTION",
                     }
                 ],
-                
             }
         ],
-
     }
 
-    post_api = requests.post(url = api_url, data = json.dumps(data))
-    ocr_text = post_api.json()['responses'][0]['fullTextAnnotation']['text']
+    post_api = requests.post(url=api_url, data=json.dumps(data))
+    ocr_text = post_api.json()["responses"][0]["fullTextAnnotation"]["text"]
 
-    return re.sub(r'[^a-zA-Z0-9]', '', ocr_text).upper()
-    #print(post_api.json()['responses'][0]['textAnnotations'][0]['description'])
-
+    return re.sub(r"[^a-zA-Z0-9]", "", ocr_text).upper()
+    # print(post_api.json()['responses'][0]['textAnnotations'][0]['description'])
 
 
 if __name__ == "__main__":
@@ -255,5 +268,3 @@ if __name__ == "__main__":
 
     cap.release()
     cv2.destroyAllWindows()
-
-
