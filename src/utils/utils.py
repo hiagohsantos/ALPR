@@ -254,6 +254,39 @@ def ocr_goole_cloud(image) -> str:
     return re.sub(r"[^a-zA-Z0-9]", "", ocr_text).upper()
     # print(post_api.json()['responses'][0]['textAnnotations'][0]['description'])
 
+def find_tilt_angle_hough(image):
+    img = image.copy()
+    img_color = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    #gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    #blur_image = cv2.GaussianBlur(img, (3, 3), 0)
+
+    borders = cv2.Canny(img, 50, 150)
+
+    lines = cv2.HoughLinesP(borders, 1, np.pi / 180, threshold=20, minLineLength=40, maxLineGap=5)
+    inclinations = []
+    if lines is not None:
+        for line in lines:
+            x1, y1, x2, y2 = line[0]
+            theta = np.arctan2(y2 - y1, x2 - x1)
+
+            # rho, theta = line[0]
+            # a = np.cos(theta)
+            # b = np.sin(theta)
+            # x0 = a * rho
+            # y0 = b * rho
+            # x1 = int(x0 + 1000 * (-b))
+            # y1 = int(y0 + 1000 * (a))
+            # x2 = int(x0 - 1000 * (-b))
+            # y2 = int(y0 - 1000 * (a))
+            # cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
+            inclinations.append((theta*180/np.pi))
+            cv2.line(img_color, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            mean_inclination = np.mean(inclinations)
+        return mean_inclination, img_color
+    else: 
+        return 0, img
+
+
 
 if __name__ == "__main__":
     while 1:

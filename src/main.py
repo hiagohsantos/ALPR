@@ -22,7 +22,9 @@ class ALPRapp:
         self.root.resizable(False, False)
         self.filter_type = ctk.IntVar(value=2)
         self.ocr_type = ctk.IntVar(value=2)
+        self.inclination_type = ctk.IntVar(value=2)
         self.detection = False
+        self.slider_reliability = ctk.IntVar(value=95)
 
         self.import_default_images()
         self.create_frames()
@@ -35,6 +37,14 @@ class ALPRapp:
 
     def __del__(self):
         pass
+
+    def slider_event(self, value):
+        if(self.slider_reliability.get() == 100):
+            self.reliability_label.configure(text=f"Confiabilidade\t        {self.slider_reliability.get()} %")
+        elif (self.slider_reliability.get() < 10):
+            self.reliability_label.configure(text=f"Confiabilidade\t            {self.slider_reliability.get()} %")
+        else:
+            self.reliability_label.configure(text=f"Confiabilidade\t          {self.slider_reliability.get()} %")
 
     def import_default_images(self):
         self.cam_background = ctk.CTkImage(
@@ -148,12 +158,29 @@ class ALPRapp:
                 value=3,
             )
 
+            ctk.CTkLabel(
+                self.menu_frame, width=180, text = "", height=2, fg_color="#575759", font=ctk.CTkFont(size=1)
+            ).place(in_=self.menu_frame, x=10, y=260)
+
+            ctk.CTkLabel(
+                self.menu_frame, width=180, text = "", height=2, fg_color="#575759", font=ctk.CTkFont(size=1)
+            ).place(in_=self.menu_frame, x=10, y=360)
+
             self.radio_cloud_ocr = ctk.CTkRadioButton(
                 self.menu_frame, text="Online", variable=self.ocr_type, value=1
             )
             self.radio_embedded_ocr = ctk.CTkRadioButton(
                 self.menu_frame, text="Embarcado", variable=self.ocr_type, value=2
             )
+
+            self.radio_inclination_hough = ctk.CTkRadioButton(
+                self.menu_frame, text="Hough", variable=self.inclination_type, value=1
+            )
+            self.radio_inclination_rect = ctk.CTkRadioButton(
+                self.menu_frame, text="Retangulo", variable=self.inclination_type, value=2
+            )
+
+            self.slider = ctk.CTkSlider(self.menu_frame, from_=0, to=100, width=180, variable = self.slider_reliability, command= self.slider_event).place(in_=self.menu_frame, x=10, y=520)
 
             # Menu Widgets
             self.progressbar = ctk.CTkProgressBar(
@@ -175,7 +202,15 @@ class ALPRapp:
 
             ocr_type = ctk.CTkLabel(
                 self.menu_frame, text="Tipo de OCR", font=ctk.CTkFont(size=12)
-            ).place(in_=self.menu_frame, x=10, y=260)
+            ).place(in_=self.menu_frame, x=10, y=270)
+
+            inclination_type = ctk.CTkLabel(
+                self.menu_frame, text="Deteção da inclinação", font=ctk.CTkFont(size=12)
+            ).place(in_=self.menu_frame, x=10, y=370)
+
+            self.reliability_label = ctk.CTkLabel(
+                self.menu_frame, text=f"Confiabilidade\t          {self.slider_reliability.get()} %", font=ctk.CTkFont(size=12)
+            )
 
             self.textStatus = ctk.CTkLabel(
                 self.menu_frame, text="", fg_color="#3c3c3d", width=180, height=30
@@ -268,13 +303,21 @@ class ALPRapp:
 
             # Menu Frame
             self.start_button.place(in_=self.menu_frame, x=10, y=20)
-            # self.progressbar.place(in_=self.menu_frame, x=10, y=100)
+
             self.textStatus.place(in_=self.menu_frame, x=10, y=100)
+
             self.radio_fixed_filter.place(in_=self.menu_frame, x=10, y=170)
             self.radio_mean_filter.place(in_=self.menu_frame, x=10, y=200)
             self.radio_gaussian_filter.place(in_=self.menu_frame, x=10, y=230)
-            self.radio_cloud_ocr.place(in_=self.menu_frame, x=10, y=290)
-            self.radio_embedded_ocr.place(in_=self.menu_frame, x=10, y=320)
+
+            self.radio_cloud_ocr.place(in_=self.menu_frame, x=10, y=300)
+            self.radio_embedded_ocr.place(in_=self.menu_frame, x=10, y=330)
+
+            self.radio_inclination_hough.place(in_=self.menu_frame, x=10, y=400)
+            self.radio_inclination_rect.place(in_=self.menu_frame, x=10, y=430)
+
+            self.reliability_label.place(in_=self.menu_frame, x=10, y=490)
+
             # Botton Frame
             self.segmented_plate.place(in_=self.botton_frame, x=20, y=40)
             self.gray_plate.place(in_=self.botton_frame, x=20, y=120)
@@ -306,25 +349,37 @@ class ALPRapp:
                 image=self.tk_image(thresholded_image, 150, 50)
             )
 
-            future_image_contourns = executor.submit(
-                utils.find_tilt_angle, thresholded_image
-            )
-            image_contourns, tilt_angle, rectangle = future_image_contourns.result()
-            self.rectangle_plate.configure(
-                image=self.tk_image(image_contourns, 150, 50)
-            )
+            if self.inclination_type.get() == 2:
+                future_image_contourns = executor.submit(
+                    utils.find_tilt_angle, thresholded_image
+                )
+                image_contourns, tilt_angle, rectangle = future_image_contourns.result()
+                self.rectangle_plate.configure(
+                    image=self.tk_image(image_contourns, 150, 50)
+                )
 
-            box = cv2.boxPoints(rectangle).astype(int)
-            box = np.intp(box)
+                box = cv2.boxPoints(rectangle).astype(int)
+                box = np.intp(box)
 
-            # Recorta a região dentro do retângulo
-            min_x, min_y = np.min(box, axis=0)
-            max_x, max_y = np.max(box, axis=0)
-            cropped_image = thresholded_image[min_y:max_y, min_x:max_x]
+                # Recorta a região dentro do retângulo
+                min_x, min_y = np.min(box, axis=0)
+                max_x, max_y = np.max(box, axis=0)
+                cropped_image = thresholded_image[min_y:max_y, min_x:max_x]
+            else:
+                future_image_contourns = executor.submit(
+                    utils.find_tilt_angle_hough, image
+                )
+                tilt_angle, canny_image = future_image_contourns.result()
+                self.rectangle_plate.configure(
+                    image=self.tk_image(canny_image, 150, 50)
+                )
+                cropped_image = image.copy()
+
 
             future_reoriented_image = executor.submit(
                 utils.rotate_image, cropped_image, tilt_angle
             )
+
             reoriented_image = future_reoriented_image.result()
             self.reoriented_plate.configure(
                 image=self.tk_image(reoriented_image, 150, 50)
