@@ -286,7 +286,23 @@ def find_tilt_angle_hough(image):
     else: 
         return 0, img
 
+def is_valid_license_plate(license_plate):
+    try:
+        license_plate_no_hyphen  = license_plate.replace("-", "")
+        pattern = re.compile(
+            r'^[A-Z]{3}\d{4}$'        # AAA0000
+            r'|'                      # Ou
+            r'^[A-Z]{3}\d[A-J]\d{2}$' # AAA0X00 (X pode ser A-J)
+        )
 
+        if pattern.match(license_plate_no_hyphen ) and len(license_plate_no_hyphen ) == 7:
+            return True
+        else:
+            return False
+
+    except Exception as e:
+        print('Falha ao verificar string', e)
+        return False
 
 if __name__ == "__main__":
     while 1:
