@@ -1,19 +1,4 @@
-1. Melhorar o algoritmo de reorientar a imagem, talvez mudar a forma que detecta o angulo, no lugar do retangulo talvez linhas. (OK)
-2. Criar o algoritmo que verifica a distancia de strings
-3. Criar um algoritmo que altera letras e numeros parecidos, como por exemplo 2 e Z, 8 e 0, O e 0, etc.
-Q e 0
-Z e 2
-S e 5
-G e 6
-B e 8
-I e 1
-T e 7
-E e 3
-A e 4
-U e V
-D e 0
-Q e 9
+1. VErificar o KeyError quando o retorno da API nao possui o FullTextAnnotation
 
-4. Adicionar uma barra para colocar a confiabilidade desejada (OK)
-5. implementar o modal para adicionar as placas autorizadas
+6. Verificar a excecao que gera quando o angulo da placa é alto, acontece apenas para o modo de retangulo de menor area
 

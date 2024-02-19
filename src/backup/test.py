@@ -1,76 +1,36 @@
-import tkinter as tk
-from PIL import Image, ImageTk
-import cv2
-import threading
-import time
 
-class CameraApp:
-    def __init__(self, master, width, height, camera_index=0):
-        self.master = master
-        self.width = width
-        self.height = height
-        self.camera_index = camera_index
-        self.fps = 0
+def corrigir_ocr(input_str):
 
-        self.canvas = tk.Canvas(master, width=width, height=height)
-        self.canvas.pack()
+    matriz_correspondencia = {
+        '8': 'B',
+        'B': '8',
 
-        self.stop_event = threading.Event()
+        'S': '5',
+        '5': 'S',
 
-        self.capture_thread = threading.Thread(target=self._capture_loop)
-        self.capture_thread.start()
+        'O': '0',
+        '0': 'O',
 
-        master.protocol("WM_DELETE_WINDOW", self.on_close)
+        'I': '1',
+        '1': 'I',
+    }
 
-    def _capture_loop(self):
-        cap = cv2.VideoCapture(self.camera_index)
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
+    str_mascara = 'AAA0100'
+    output_str = '' 
 
-        start_time = time.time()
-        frames = 0
+    for caracter, mascara  in zip(input_str, str_mascara):
+        if (caracter.isdigit() and mascara == 'A') or (caracter.isalpha() and mascara == '0'):
+            output_str += matriz_correspondencia.get(caracter, caracter)
 
-        while not self.stop_event.is_set():
-            ret, frame = cap.read()
-            if not ret:
-                break
+        elif(caracter.isalpha() and mascara == '1' and not('A' <= caracter <= 'J')):
+            output_str += matriz_correspondencia.get(caracter, caracter)
 
-            image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            image = Image.fromarray(image)
-            photo = ImageTk.PhotoImage(image=image)
+        else:
+            output_str += caracter
+    return output_str
 
-            self.canvas.config(width=self.width, height=self.height)
-            self.canvas.create_image(0, 0, anchor=tk.NW, image=photo)
-            self.master.update_idletasks()
-
-            frames += 1
-            if frames >= 30:
-                end_time = time.time()
-                self.fps = frames / (end_time - start_time)
-                start_time = end_time
-                frames = 0
-
-        cap.release()
-
-    def on_close(self):
-        self.stop_event.set()
-        self.capture_thread.join()
-        self.master.destroy()
-
-def main():
-    root = tk.Tk()
-    root.title("Raspberry Pi Camera Viewer")
-
-    width, height = 640, 480
-
-    app = CameraApp(root, width, height)
-
-    def update_fps():
-        root.title(f"Raspberry Pi Camera Viewer - FPS: {app.fps:.2f}")
-        root.after(1000, update_fps)
-
-    update_fps()
-    root.mainloop()
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    string_ocr = "BRA20I2"
+    string_corrigida = corrigir_ocr(string_ocr)
+    print("String original:", string_ocr)
+    print("String corrigida:", string_corrigida)
