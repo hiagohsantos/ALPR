@@ -1,36 +1,28 @@
+# Import libraries
+import RPi.GPIO as GPIO
+import time
 
-def corrigir_ocr(input_str):
+# Set GPIO numbering mode
+GPIO.setmode(GPIO.BOARD)
 
-    matriz_correspondencia = {
-        '8': 'B',
-        'B': '8',
+# Set pin 11 as an output, and define as servo1 as PWM pin
+GPIO.setup(11,GPIO.OUT)
+servo1 = GPIO.PWM(11,50) # pin 11 for servo1, pulse 50Hz
 
-        'S': '5',
-        '5': 'S',
+# Start PWM running, with value of 0 (pulse off)
+servo1.start(0)
 
-        'O': '0',
-        '0': 'O',
+try:
+    while True:
+        #Ask user for angle and turn servo to it
+        angle = float(input('Enter angle between 0 & 180: '))
+        servo1.ChangeDutyCycle(2+(angle/18))
+        time.sleep(0.5)
+        servo1.ChangeDutyCycle(0)
 
-        'I': '1',
-        '1': 'I',
-    }
+finally:
+    #Clean things up at the end
+    servo1.stop()
+    GPIO.cleanup()
+    print("Goodbye!")
 
-    str_mascara = 'AAA0100'
-    output_str = '' 
-
-    for caracter, mascara  in zip(input_str, str_mascara):
-        if (caracter.isdigit() and mascara == 'A') or (caracter.isalpha() and mascara == '0'):
-            output_str += matriz_correspondencia.get(caracter, caracter)
-
-        elif(caracter.isalpha() and mascara == '1' and not('A' <= caracter <= 'J')):
-            output_str += matriz_correspondencia.get(caracter, caracter)
-
-        else:
-            output_str += caracter
-    return output_str
-
-if __name__ == '__main__':
-    string_ocr = "BRA20I2"
-    string_corrigida = corrigir_ocr(string_ocr)
-    print("String original:", string_ocr)
-    print("String corrigida:", string_corrigida)
