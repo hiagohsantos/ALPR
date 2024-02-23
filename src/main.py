@@ -5,11 +5,21 @@ import time
 from utils import utils, textUtils
 from utils.addPlateWindow import ToplevelWindow
 import concurrent.futures
+import threading
 import re
 import numpy as np
 import os
+import RPi.GPIO as GPIO
+import cv2
 
 ctk.set_appearance_mode("dark")
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Button
+GPIO.setup(11, GPIO.OUT) # Servo Motor
+GPIO.setwarnings(False)
+
+
 
 class ALPRapp:
     def __init__(self) -> None:
@@ -21,14 +31,19 @@ class ALPRapp:
         self.root.title("ALPR")
         self.root.geometry("900x800+100+100")
         self.root.resizable(False, False)
+        # Variables
         self.filter_type = ctk.IntVar(value=2)
         self.ocr_type = ctk.IntVar(value=2)
-        self.inclination_type = ctk.IntVar(value=2)
+        self.inclination_type = ctk.IntVar(value=1)
         self.apply_code_correction = ctk.IntVar(value=1)
         self.detection_type = ctk.IntVar(value=1)
         self.threshold_var = ctk.StringVar(value='127')
         self.slider_reliability = ctk.IntVar(value=95)
+
         self.detection = False
+        self.frame_count_controller = 0
+        self.data_detection = None
+        self.authorization = False
 
         self.import_default_images()
         self.create_frames()
@@ -42,13 +57,30 @@ class ALPRapp:
         self.load_data()
         self.load_images()
         
+        self.servo = GPIO.PWM(11, 50) 
+        self.servo.start(0)
+
         self.video()
+        self.verify_button()
+        self.root.mainloop()
 
     def __del__(self):
-        pass
+        self.servo.stop()
+        GPIO.cleanup()
+        
     
+    def servo_motion(self, angle):
+        try:
+            print(f"mudando servo para {angle}")
+            self.servo.ChangeDutyCycle(2+(angle/18))
+            time.sleep(0.5)
+            self.servo.ChangeDutyCycle(0)
+
+        except Exeption as e:
+            print('Falha ao mover o Servo Motor')
+
+     
     def clear_interface(self):
-       
         self.ocr_raw_text.configure(text='')
         self.result_text.configure(text = '')
         self.reliability_text.configure(text = '')
@@ -133,10 +165,35 @@ class ALPRapp:
         self.startTimeRec = int(time.time())
         self.progress = 0
 
+    def timer(self):
+        self.servo_motion(90)
+        time.sleep(15)
+        self.clear_interface()
+        self.set_authorization(False)
+        self.servo_motion(0)
+        
+
+    def set_authorization(self, status):
+        
+        self.authorization = status
+        if self.authorization:
+            timer_thread = threading.Thread(target=self.timer)
+            timer_thread.start()
+            
+
     def start_detection(self) -> None:
         self.clear_interface()
-        self.detection = True
-        
+        if self.detection:
+            self.detection = False
+            if self.detection_type.get() == 3:
+                self.start_button.configure(text = 'Iniciar')
+                self.start_button.configure(fg_color = '#1f538d', hover_color = '#14375e')
+                self.data_detection = None
+        else:
+            self.detection = True
+            if self.detection_type.get() == 3:
+                self.start_button.configure(fg_color = '#f26f66', hover_color ='#db4e44' )
+                self.start_button.configure(text = 'Parar')
 
     def tk_image(self, image, x, y):
         image = Image.fromarray(image)
@@ -562,55 +619,52 @@ class ALPRapp:
                 self.rectangle_plate.configure(
                     image=self.tk_image(canny_image, 150, 50)
                 )
-                cropped_image = image.copy()
-
-
+                
             future_reoriented_image = executor.submit(
-                utils.rotate_image, cropped_image, tilt_angle
+                utils.rotate_image, image, tilt_angle
             )
 
             reoriented_image = future_reoriented_image.result()
             self.reoriented_plate.configure(
                 image=self.tk_image(reoriented_image, 150, 50)
             )
-
-            self.starts_asynchronous_ocr(reoriented_image)
-
+            
+            if not self.authorization:
+                self.starts_asynchronous_ocr(reoriented_image)
+           
     def starts_asynchronous_detection(self, frame):
         with concurrent.futures.ThreadPoolExecutor() as executor:
             future = executor.submit(utils.detect, frame)
             result = future.result()
             if result.detections:
                 # Segmenta a imagem e redimensiona para 150x50 px
-                segImage, text = utils.segImage(frame.copy(), result)
-                # cv2.imwrite(f"../captures/default/img-{time.time()}.png", cv2.cvtColor(segImage, cv2.COLOR_BGR2RGB))
+                segImage, text, self.data_detection = utils.segImage(frame.copy(), result)
                 self.textStatus.configure(text=text)
                 segImageRGB = cv2.resize(
-                    segImage, (150, 50), interpolation=cv2.INTER_AREA
-                )
-                # substitui a imagem modelo pela imagem segmentada
+                        segImage, (150, 50), interpolation=cv2.INTER_AREA
+                    )
+                    # substitui a imagem modelo pela imagem segmentada
                 self.segmented_plate.configure(
-                    image=self.tk_image(segImageRGB, 150, 50)
-                )
+                        image=self.tk_image(segImageRGB, 150, 50)
+                    )
                 gray_image = cv2.cvtColor(segImageRGB, cv2.COLOR_BGR2GRAY)
                 self.gray_plate.configure(image=self.tk_image(gray_image, 150, 50))
+                
+                # cv2.imwrite(f"../captures/default/img-{time.time()}.png", cv2.cvtColor(segImage, cv2.COLOR_BGR2RGB))
                 self.starts_asynchronous_processing(gray_image)
-
-                # self.starts_asynchronous_ocr(segImageRGB)
-                # Troca a imagem da camera para a imagem com o retangulo de detecçao
-                img = utils.visualize(frame, result)
+                
             else:
                 self.textStatus.configure(text="Nada encontrado!")
                 self.textStatus.after(1000, lambda: self.textStatus.configure(text=""))
+                self.data_detection = None
+
 
     def process_ocr_result(self, code):
         if len(code) == 7:
-
             if self.apply_code_correction.get() == 1:
                 verified_code = textUtils.replace_ocr_code(code)
                 if verified_code != code:
                     self.ocr_raw_text.configure(text=code)
-                    print(f'Mudanca no codigo: {code} -> {verified_code}')
                 code = verified_code
             
             self.ocr_result.configure(text=code)
@@ -622,29 +676,61 @@ class ALPRapp:
             if self.slider_reliability.get()/100 <= score:
                 self.reliability_text.configure(text_color ='#44fa41', text = f'Similaridade: {int(score*100)}%')
                 self.result_text.configure(text_color ='#44fa41', text = 'AUTORIZADO')
+                self.set_authorization(True)
+
             elif(score > 0.57): # 4 characters
                 self.reliability_text.configure(text_color ='#44fa41', text = f'Similaridade: {int(score*100)}%')
                 self.result_text.configure(text_color ='#f1fa41', text = 'REJEITADO')
+                self.set_authorization(False)
             else:
                 self.reliability_text.configure(text_color ='#44fa41', text = f'')
                 self.result_text.configure(text_color ='#ff554f', text = 'REJEITADO')
-
-            
+                self.set_authorization(False)
         else:
-            print('o codigo nao possui 7 caracteres')
             self.ocr_result.configure(text='-------')
-       
         
 
+
+    def verify_button(self):
+        if (GPIO.input(13) == GPIO.LOW) and not self.detection and self.detection_type.get() == 2:
+            self.start_detection()
+    
+        self.root.after(100, self.verify_button)
+
+
     def video(self):
+        self.frame_count_controller +=1
         frame, fps = utils.capture()
         self.fps_cam.configure(text=fps)
+
         if self.detection:
-            # Inicia a detecçao de objetos
-            self.starts_asynchronous_detection(frame)
-            self.detection = False
+            if self.detection_type.get() == 3:
+                if (self.frame_count_controller % 5 == 0):
+                    self.starts_asynchronous_detection(frame)
+            else:
+                self.starts_asynchronous_detection(frame)
+                self.detection = False
+                self.data_detection = None
 
         if self.switch_variable.get() == "on":
+            if self.data_detection:
+                cv2.rectangle(
+                frame,
+                self.data_detection[0],
+                self.data_detection[1],
+                (0, 255, 0),
+                2,
+            )
+                cv2.putText(
+                frame,
+                self.data_detection[2],
+                self.data_detection[3],
+                cv2.FONT_HERSHEY_PLAIN,
+                1,
+                (0, 255, 0),
+                2,
+            )
+
             imgtk = ctk.CTkImage(
                 dark_image=Image.fromarray(frame),
                 size=(640, 480),
@@ -654,9 +740,9 @@ class ALPRapp:
             self.videoCam.configure(image=self.cam_background)
         self.videoCam.after(1, self.video)
 
-    def run(self):
-        self.root.mainloop()
+   
+        
 
 
 if __name__ == "__main__":
-    ALPRapp().run()
+    ALPRapp()
