@@ -28,55 +28,61 @@ def visualize(
     image: np.ndarray,
     detection_result: processor.DetectionResult,
 ) -> np.ndarray:
-  """Draws bounding boxes on the input image and return it.
+    """Draws bounding boxes on the input image and return it.
 
-  Args:
-    image: The input RGB image.
-    detection_result: The list of all "Detection" entities to be visualize.
+    Args:
+      image: The input RGB image.
+      detection_result: The list of all "Detection" entities to be visualize.
 
-  Returns:
-    Image with bounding boxes.
-  """
-  for detection in detection_result.detections:
-    # Draw bounding_box
-    bbox = detection.bounding_box
-    start_point = bbox.origin_x, bbox.origin_y
-    end_point = bbox.origin_x + bbox.width, bbox.origin_y + bbox.height
-    cv2.rectangle(image, start_point, end_point, _TEXT_COLOR, 3)
+    Returns:
+      Image with bounding boxes.
+    """
+    for detection in detection_result.detections:
+        # Draw bounding_box
+        bbox = detection.bounding_box
+        start_point = bbox.origin_x, bbox.origin_y
+        end_point = bbox.origin_x + bbox.width, bbox.origin_y + bbox.height
+        cv2.rectangle(image, start_point, end_point, _TEXT_COLOR, 3)
 
-    # Draw label and score
-    category = detection.categories[0]
-    category_name = category.category_name
-    probability = round(category.score, 2)
-    
-    
-      
-    result_text = category_name + ' (' + str(probability) + ')'
-    text_location = (_MARGIN + bbox.origin_x,
-                      bbox.origin_y -_MARGIN - _ROW_SIZE)
-    cv2.putText(image, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
-                _FONT_SIZE, _TEXT_COLOR, _FONT_THICKNESS)
-  return image
+        # Draw label and score
+        category = detection.categories[0]
+        category_name = category.category_name
+        probability = round(category.score, 2)
 
-def segImage(image: np.ndarray, detection_result: processor.DetectionResult) -> np.ndarray:
-  aux = 0
-  x1, x2, y1, y2 = 0, 0, 0, 0
- 
+        result_text = category_name + " (" + str(probability) + ")"
+        text_location = (_MARGIN + bbox.origin_x, bbox.origin_y - _MARGIN - _ROW_SIZE)
+        cv2.putText(
+            image,
+            result_text,
+            text_location,
+            cv2.FONT_HERSHEY_PLAIN,
+            _FONT_SIZE,
+            _TEXT_COLOR,
+            _FONT_THICKNESS,
+        )
+    return image
 
-  for detection in detection_result.detections:
-    bbox = detection.bounding_box
-    category = detection.categories[0]
-    probability = round(category.score, 2)
 
-    if probability > aux :
-      x1 = bbox.origin_x
-      y1 = bbox.origin_y
-      x2 = bbox.origin_x + bbox.width
-      y2 = bbox.origin_y + bbox.height
+def segImage(
+    image: np.ndarray, detection_result: processor.DetectionResult
+) -> np.ndarray:
+    aux = 0
+    x1, x2, y1, y2 = 0, 0, 0, 0
 
-      aux = probability
+    for detection in detection_result.detections:
+        bbox = detection.bounding_box
+        category = detection.categories[0]
+        probability = round(category.score, 2)
 
-  print(f'Coordenadas-> X1:{x1}, X2: {x2}, Y1: {y1}, Y2: {y2}')
-  image = image[y1:y2, x1:x2] 
+        if probability > aux:
+            x1 = bbox.origin_x
+            y1 = bbox.origin_y
+            x2 = bbox.origin_x + bbox.width
+            y2 = bbox.origin_y + bbox.height
 
-  return image
+            aux = probability
+
+    print(f"Coordenadas-> X1:{x1}, X2: {x2}, Y1: {y1}, Y2: {y2}")
+    image = image[y1:y2, x1:x2]
+
+    return image

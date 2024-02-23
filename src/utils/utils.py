@@ -94,7 +94,7 @@ def segImage(
             y2 = bbox.origin_y + bbox.height
 
             aux = probability
-    
+
     text = f"X:  {x1}  -  {x2}\n Y:  {y1}  -  {y2}"
     result_text = category.category_name + " (" + str(probability) + ")"
     text_location = (_MARGIN + bbox.origin_x, bbox.origin_y - _MARGIN - _ROW_SIZE)
@@ -141,13 +141,14 @@ def visualize(
         )
     return image
 
+
 def detection_data(detection_result: processor.DetectionResult):
     for detection in detection_result.detections:
         # Draw bounding_box
         bbox = detection.bounding_box
         start_point = bbox.origin_x, bbox.origin_y
         end_point = bbox.origin_x + bbox.width, bbox.origin_y + bbox.height
-       
+
         category = detection.categories[0]
         category_name = category.category_name
         probability = round(category.score, 2)
@@ -207,8 +208,10 @@ def find_tilt_angle(image):
         rect = cv2.minAreaRect(outer_contour)
         box = cv2.boxPoints(rect)
         box = np.int0(box)
-    
-        indice_lado_maior = np.argmax([np.linalg.norm(box[i] - box[(i + 1) % 4]) for i in range(4)])
+
+        indice_lado_maior = np.argmax(
+            [np.linalg.norm(box[i] - box[(i + 1) % 4]) for i in range(4)]
+        )
         ponto1 = box[indice_lado_maior]
         ponto2 = box[(indice_lado_maior + 1) % 4]
 
@@ -223,7 +226,6 @@ def find_tilt_angle(image):
 
     except Exception as e:
         print(f"Houve um problema ao encontrar os contornos na imagem. {e}")
-      
 
 
 def rotate_image(image, tilt_angle):
@@ -238,7 +240,9 @@ def rotate_image(image, tilt_angle):
         if width <= 0 or height <= 0:
             raise ValueError("As dimensões da imagem não são válidas.")
 
-        rotation_matrix = cv2.getRotationMatrix2D((width / 2, height / 2), tilt_angle, 1)
+        rotation_matrix = cv2.getRotationMatrix2D(
+            (width / 2, height / 2), tilt_angle, 1
+        )
         reoriented_image = cv2.warpAffine(
             img, rotation_matrix, (width, height), flags=cv2.INTER_NEAREST
         )
@@ -248,12 +252,13 @@ def rotate_image(image, tilt_angle):
     except Exception as e:
         print(f"Houve um problema ao rotacionar a imagem. {e}")
         return img
-        
+
 
 def ocr_goole_cloud(image) -> str:
     try:
         api_url = (
-            os.getenv("GOOGLE_CLOUD_API_URL") + f"?key={os.getenv('GOOGLE_CLOUD_API_KEY')}"
+            os.getenv("GOOGLE_CLOUD_API_URL")
+            + f"?key={os.getenv('GOOGLE_CLOUD_API_KEY')}"
         )
 
         bytes_io = BytesIO()
@@ -283,7 +288,8 @@ def ocr_goole_cloud(image) -> str:
         return re.sub(r"[^a-zA-Z0-9]", "", ocr_text).upper()
         # print(post_api.json()['responses'][0]['textAnnotations'][0]['description'])
     except Exeption as e:
-            print('Falha ao receber dados da API do Google Cloud.')
+        print("Falha ao receber dados da API do Google Cloud.")
+
 
 # def find_tilt_angle_hough(image):
 #     img = image.copy()
@@ -300,15 +306,23 @@ def ocr_goole_cloud(image) -> str:
 #             cv2.line(img_color, (x1, y1), (x2, y2), (0, 255, 0), 2)
 #             mean_inclination = np.mean(inclinations)
 #         return mean_inclination, img_color
-#     else: 
+#     else:
 #         return 0, img
+
 
 def find_tilt_angle_hough(image, inclinations_threshold=20, max_inclination=45):
     img = image.copy()
     img_color = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     borders = cv2.Canny(img, 50, 150)
 
-    lines = cv2.HoughLinesP(borders, rho=1, theta=1*np.pi/180, threshold=50, minLineLength=70, maxLineGap=50)
+    lines = cv2.HoughLinesP(
+        borders,
+        rho=1,
+        theta=1 * np.pi / 180,
+        threshold=50,
+        minLineLength=70,
+        maxLineGap=50,
+    )
     inclinations = []
     filtered_lines_inclination = []
 
@@ -316,28 +330,38 @@ def find_tilt_angle_hough(image, inclinations_threshold=20, max_inclination=45):
         for line in lines:
             x1, y1, x2, y2 = line[0]
             theta = np.arctan2(y2 - y1, x2 - x1)
-            inclinations.append((theta*180/np.pi))
+            inclinations.append((theta * 180 / np.pi))
 
         # Desvio padrão das inclinações
         std_dev = np.std(inclinations)
 
-        filtered_lines = [lines[i] for i in range(len(lines)) if
-                          abs(inclinations[i] - np.mean(inclinations)) <= inclinations_threshold
-                          and inclinations[i] <= max_inclination]
-
+        filtered_lines = [
+            lines[i]
+            for i in range(len(lines))
+            if abs(inclinations[i] - np.mean(inclinations)) <= inclinations_threshold
+            and inclinations[i] <= max_inclination
+        ]
 
         for line in filtered_lines:
             x1, y1, x2, y2 = line[0]
             theta = np.arctan2(y2 - y1, x2 - x1)
-            filtered_lines_inclination.append((theta*180/np.pi))
-            cv2.line(img_color, (x1, y1), (x2, y2), (0, 255, ), 2)
+            filtered_lines_inclination.append((theta * 180 / np.pi))
+            cv2.line(
+                img_color,
+                (x1, y1),
+                (x2, y2),
+                (
+                    0,
+                    255,
+                ),
+                2,
+            )
 
         mean_inclination = np.mean(filtered_lines_inclination)
         return mean_inclination, img_color
 
     else:
         return 0, img
-
 
 
 if __name__ == "__main__":
