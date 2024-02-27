@@ -161,11 +161,16 @@ def detection_data(detection_result: processor.DetectionResult):
 def tesseract_ocr(image: np.ndarray, config: str = "--oem 3 --psm 13") -> str:
     try:
         img = image.copy()
+        #img = cv2.GaussianBlur(img, (7,3), 0)
         text = pytesseract.image_to_string(img, config=config)
-        return re.sub(r"[^a-zA-Z0-9]", "", text).upper()
+        if text:
+            return re.sub(r"[^a-zA-Z0-9]", "", text).upper()
+        else:
+            return '' 
 
     except Exception as e:
         print(f"Houve um erro ao fazer o OCR.{e}")
+        return '' 
 
 
 def threshold_image(image, filter_type: int, thresh: int = 127):
@@ -257,8 +262,7 @@ def rotate_image(image, tilt_angle):
 def ocr_goole_cloud(image) -> str:
     try:
         api_url = (
-            os.getenv("GOOGLE_CLOUD_API_URL")
-            + f"?key={os.getenv('GOOGLE_CLOUD_API_KEY')}"
+            os.getenv("GOOGLE_CLOUD_API_URL")+f"?key={os.getenv('GOOGLE_CLOUD_API_KEY')}"
         )
 
         bytes_io = BytesIO()
@@ -284,11 +288,14 @@ def ocr_goole_cloud(image) -> str:
 
         post_api = requests.post(url=api_url, data=json.dumps(data))
         ocr_text = post_api.json()["responses"][0]["fullTextAnnotation"]["text"]
-
+        
         return re.sub(r"[^a-zA-Z0-9]", "", ocr_text).upper()
         # print(post_api.json()['responses'][0]['textAnnotations'][0]['description'])
-    except Exeption as e:
-        print("Falha ao receber dados da API do Google Cloud.")
+
+    except Exception as e:
+        print(f"Falha ao receber dados da API do Google Cloud. {e}")
+        return ''
+        
 
 
 # def find_tilt_angle_hough(image):

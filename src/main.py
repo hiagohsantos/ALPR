@@ -700,18 +700,23 @@ class ALPRapp:
                 future_ocr_text = executor.submit(utils.tesseract_ocr, image)
 
             ocr_text = future_ocr_text.result()
+            
             if len(ocr_text) > 7:
-                ocr_text = ocr_text[1:]
-                if len(ocr_text) > 7:
-                    ocr_text = ocr_text[:7]
+                ocr_text = ocr_text[1:8]
+         
 
             self.process_ocr_result(ocr_text)
 
     def starts_asynchronous_processing(self, image):
+        image_resize = cv2.resize(image.copy(), (150, 50), interpolation=cv2.INTER_AREA)
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        
+        self.gray_plate.configure(image=self.tk_image(gray_image, 150, 50))
+
         with concurrent.futures.ThreadPoolExecutor() as executor:
             future_thresholded_image = executor.submit(
                 utils.threshold_image,
-                image,
+                gray_image,
                 self.filter_type.get(),
                 int(self.threshold_var.get()),
             )
@@ -738,7 +743,7 @@ class ALPRapp:
                 cropped_image = thresholded_image[min_y:max_y, min_x:max_x]
             else:
                 future_image_contourns = executor.submit(
-                    utils.find_tilt_angle_hough, image
+                    utils.find_tilt_angle_hough, gray_image
                 )
                 tilt_angle, canny_image = future_image_contourns.result()
                 self.rectangle_plate.configure(
@@ -746,7 +751,7 @@ class ALPRapp:
                 )
 
             future_reoriented_image = executor.submit(
-                utils.rotate_image, image, tilt_angle
+                utils.rotate_image, gray_image, tilt_angle
             )
 
             reoriented_image = future_reoriented_image.result()
@@ -774,11 +779,9 @@ class ALPRapp:
                 self.segmented_plate.configure(
                     image=self.tk_image(segImageRGB, 150, 50)
                 )
-                gray_image = cv2.cvtColor(segImageRGB, cv2.COLOR_BGR2GRAY)
-                self.gray_plate.configure(image=self.tk_image(gray_image, 150, 50))
-
+                
                 # cv2.imwrite(f"../captures/default/img-{time.time()}.png", cv2.cvtColor(segImage, cv2.COLOR_BGR2RGB))
-                self.starts_asynchronous_processing(gray_image)
+                self.starts_asynchronous_processing(segImage)
 
             else:
                 self.textStatus.configure(text="Nada encontrado!")
