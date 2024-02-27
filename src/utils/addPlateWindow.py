@@ -5,10 +5,10 @@ from utils import textUtils
 class ToplevelWindow(ctk.CTkToplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        x = (1920 - 400) // 2
-        y = (1080 - 800) // 2
-        self.geometry(f"400x800+{x}+{y}")
-        self.title("DADOS SALVOS")
+        x = (1024 - 300) // 2
+        y = (720 - 600) // 2
+        self.geometry(f"300x600+{x}+{y}")
+        self.title("Placas")
         self.resizable(False, False)
         self.radiobutton_variable = ctk.StringVar()
         self.button_list = []
@@ -28,12 +28,12 @@ class ToplevelWindow(ctk.CTkToplevel):
             self.add_item(string)
             self.alert_label.configure(text="Adicionado")
             self.alert_label.configure(text_color="#44fa41")
-            self.alert_label.place(in_=self, x=130, y=700)
+            self.alert_label.place(in_=self, x=80, y=500)
             self.after(3000, self.alert_label.place_forget)
         else:
             self.alert_label.configure(text="Formato incorreto")
             self.alert_label.configure(text_color="#ff554f")
-            self.alert_label.place(in_=self, x=130, y=700)
+            self.alert_label.place(in_=self, x=80, y=500)
             self.after(3000, self.alert_label.place_forget)
 
     def upper_text(self, event):
@@ -43,12 +43,12 @@ class ToplevelWindow(ctk.CTkToplevel):
         self.entry_text = ctk.StringVar()
         self.title = ctk.CTkLabel(self, text="Status\t Codigo ")
         self.scrollable_list = ctk.CTkScrollableFrame(
-            master=self, width=365, height=680
+            master=self, width=265, height=480
         )
         self.plate_input = ctk.CTkEntry(
             self,
             placeholder_text="Codigo da placa",
-            width=260,
+            width=190,
             height=40,
             font=ctk.CTkFont(size=20),
             textvariable=self.entry_text,
@@ -56,7 +56,7 @@ class ToplevelWindow(ctk.CTkToplevel):
         self.plate_input.bind("<KeyRelease>", self.upper_text)
 
         self.add_button = ctk.CTkButton(
-            self, text="Adicionar", width=100, height=40, command=self.add_plate_code
+            self, text="Adicionar", width=90, height=40, command=self.add_plate_code
         )
         self.alert_label = ctk.CTkLabel(
             self,
@@ -73,8 +73,8 @@ class ToplevelWindow(ctk.CTkToplevel):
         self.scrollable_list.grid(
             row=0, column=2, padx=10, pady=(40, 10), sticky="nsew"
         )
-        self.plate_input.place(in_=self, x=10, y=740)
-        self.add_button.place(in_=self, x=285, y=740)
+        self.plate_input.place(in_=self, x=10, y=540)
+        self.add_button.place(in_=self, x=200, y=540)
 
     def load_data(self):
         try:

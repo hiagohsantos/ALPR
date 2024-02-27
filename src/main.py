@@ -1,8 +1,13 @@
+print('Iniciando Custom Tkinter')
 import customtkinter as ctk
+print('Carregango PIL')
 from PIL import Image, ImageTk
+print('Carregango OpenCV')
 import cv2
 import time
+print('Iniciando Tensor FLow')
 from utils import utils, textUtils
+print('Carregando aplicativo')
 from utils.addPlateWindow import ToplevelWindow
 import concurrent.futures
 import threading
@@ -11,6 +16,7 @@ import numpy as np
 import os
 import RPi.GPIO as GPIO
 import cv2
+import json
 
 ctk.set_appearance_mode("dark")
 
@@ -28,8 +34,11 @@ class ALPRapp:
         self.decTime = 3
         self.progress = 0
         self.root.title("ALPR")
-        self.root.geometry("900x800+100+100")
+        self.window_width = 1024
+        self.window_height = 704
+        self.root.geometry(f"{self.window_width}x{self.window_height}")
         self.root.resizable(False, False)
+        
         # Variables
         self.filter_type = ctk.IntVar(value=2)
         self.ocr_type = ctk.IntVar(value=2)
@@ -38,7 +47,8 @@ class ALPRapp:
         self.detection_type = ctk.IntVar(value=1)
         self.threshold_var = ctk.StringVar(value="127")
         self.slider_reliability = ctk.IntVar(value=95)
-
+        self.load_config()
+        
         self.detection = False
         self.frame_count_controller = 0
         self.data_detection = None
@@ -53,6 +63,7 @@ class ALPRapp:
 
         self.toplevel_window = None
         self.code_list = []
+        
         self.load_data()
         self.load_images()
 
@@ -64,6 +75,7 @@ class ALPRapp:
         self.root.mainloop()
 
     def __del__(self):
+        self.save_config()
         self.servo.stop()
         GPIO.cleanup()
 
@@ -108,6 +120,39 @@ class ALPRapp:
 
         except FileNotFoundError as e:
             print("Erro ao abrir o arquivo: ", e)
+
+    def load_config(self):
+        try:
+            with open("config.json", "r") as file:
+                data = json.load(file)
+                
+            self.filter_type.set(data.get('filter_type', 2))
+            self.ocr_type.set(data.get('ocr_type', 2))
+            self.inclination_type.set(data.get('inclinacion_type', 1))
+            self.apply_code_correction.set(data.get('code_correction', 1))
+            self.detection_type.set(data.get('detection_type', 1))
+            self.threshold_var.set(data.get('threshold_type', '127'))
+            self.slider_reliability.set(data.get('reliability', 95))
+         
+        except FileNotFoundError as e:
+            print("Erro ao abrir o arquivo de configuracoes: ", e)
+    
+    def save_config(self):
+        try:
+            data={
+                'filter_type': self.filter_type.get(),
+                'ocr_type': self.ocr_type.get(),
+                'inclinacion_type': self.inclination_type.get(),
+                'code_correction': self.apply_code_correction.get(),
+                'detection_type': self.detection_type.get(),
+                'threshold_type': self.threshold_var.get(),
+                'reliability': self.slider_reliability.get(),
+            }
+            with open("config.json", "w") as file:
+                json.dump(data, file)
+
+        except FileNotFoundError as e:
+            print("Erro ao salvar o arquivo de configuracoes: ", e)
 
     def load_images(self):
         self.mercosul_model_plate = ctk.CTkImage(
@@ -206,19 +251,21 @@ class ALPRapp:
         try:
             # Root Frames
             self.cam_frame = ctk.CTkFrame(
-                self.root, width=660, height=550, fg_color="#343436"
+                self.root, width=700, height=520, fg_color="#343436"
             )
-            self.cam_frame.place(in_=self.root, y=20, x=20)
+
+            self.cam_frame.place(in_=self.root, y=5, x=50)
 
             self.menu_frame = ctk.CTkFrame(
-                self.root, width=200, height=550, fg_color="#343436"
+                self.root, width=200, height=520, fg_color="#343436"
             )
-            self.menu_frame.place(in_=self.root, x=690, y=20)
+            self.menu_frame.place(in_=self.root, x=780, y=5)
 
             self.botton_frame = ctk.CTkFrame(
-                self.root, width=870, height=200, fg_color="#343436"
+                self.root, width=930, height=160, fg_color="#343436"
             )
-            self.botton_frame.place(in_=self.root, x=20, y=580)
+            self.botton_frame.place(in_=self.root, x=50, y=535)
+
         except Exception as e:
             print(f"Houve um problema ao criar os Frames -> {e}")
             raise e
@@ -228,7 +275,7 @@ class ALPRapp:
             # Cam widgets
             self.title_cam = ctk.CTkLabel(
                 self.cam_frame, text="Câmera", font=ctk.CTkFont(size=20)
-            ).place(in_=self.cam_frame, relx=0.45, y=10)
+            ).place(in_=self.cam_frame, relx=0.45, y=3)
 
             self.fps_cam = ctk.CTkLabel(
                 self.cam_frame, text="", font=ctk.CTkFont(size=14)
@@ -273,23 +320,23 @@ class ALPRapp:
                 self.menu_frame,
                 text="Iniciar",
                 width=180,
-                height=40,
+                height=30,
                 # command=lambda: self.capture_timer(),
                 command=lambda: self.start_detection(),
                 font=ctk.CTkFont(size=26),
             )
-            self.start_button.place(in_=self.menu_frame, x=10, y=10)
+            self.start_button.place(in_=self.menu_frame, x=10, y=5)
 
             # Modal Button
             self.modal_button = ctk.CTkButton(
                 self.menu_frame,
                 text="Adicionar Placas",
                 width=180,
-                height=30,
+                height=25,
                 command=self.open_toplevel,
                 font=ctk.CTkFont(size=18),
             )
-            self.modal_button.place(in_=self.menu_frame, x=10, y=60)
+            self.modal_button.place(in_=self.menu_frame, x=10, y=45)
 
             ### Detection trigger type
             ctk.CTkLabel(
@@ -299,14 +346,14 @@ class ALPRapp:
                 height=2,
                 fg_color="#575759",
                 font=ctk.CTkFont(size=1),
-            ).place(in_=self.menu_frame, x=10, y=100)
+            ).place(in_=self.menu_frame, x=10, y=80)
 
             ctk.CTkLabel(
                 self.menu_frame,
                 text="Tipo de detecção",
                 font=ctk.CTkFont(size=12),
                 width=200,
-            ).place(in_=self.menu_frame, y=105)
+            ).place(in_=self.menu_frame, y=85)
 
             self.manual_detection = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -316,7 +363,7 @@ class ALPRapp:
                 radiobutton_width=18,
                 radiobutton_height=18,
             )
-            self.manual_detection.place(in_=self.menu_frame, x=10, y=130)
+            self.manual_detection.place(in_=self.menu_frame, x=10, y=110)
 
             self.automatic_detection = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -326,7 +373,7 @@ class ALPRapp:
                 radiobutton_width=18,
                 radiobutton_height=18,
             )
-            self.automatic_detection.place(in_=self.menu_frame, x=10, y=150)
+            self.automatic_detection.place(in_=self.menu_frame, x=10, y=130)
 
             self.continuous_detection = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -336,7 +383,7 @@ class ALPRapp:
                 radiobutton_width=18,
                 radiobutton_height=18,
             )
-            self.continuous_detection.place(in_=self.menu_frame, x=10, y=170)
+            self.continuous_detection.place(in_=self.menu_frame, x=10, y=150)
 
             ### Threshold type
             ctk.CTkLabel(
@@ -346,14 +393,14 @@ class ALPRapp:
                 height=2,
                 fg_color="#575759",
                 font=ctk.CTkFont(size=1),
-            ).place(in_=self.menu_frame, x=10, y=200)
+            ).place(in_=self.menu_frame, x=10, y=180)
 
             ctk.CTkLabel(
                 self.menu_frame,
                 text="Limiarização",
                 font=ctk.CTkFont(size=12),
                 width=200,
-            ).place(in_=self.menu_frame, y=205)
+            ).place(in_=self.menu_frame, y=185)
 
             self.radio_fixed_filter = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -373,7 +420,7 @@ class ALPRapp:
             )
             self.threshold.bind("<KeyRelease>", self.verify_threshold_value)
 
-            self.radio_fixed_filter.place(in_=self.menu_frame, x=10, y=230)
+            self.radio_fixed_filter.place(in_=self.menu_frame, x=10, y=210)
 
             self.radio_mean_filter = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -384,7 +431,7 @@ class ALPRapp:
                 radiobutton_height=18,
                 command=self.create_threshold_input,
             )
-            self.radio_mean_filter.place(in_=self.menu_frame, x=10, y=250)
+            self.radio_mean_filter.place(in_=self.menu_frame, x=10, y=230)
 
             self.radio_gaussian_filter = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -395,7 +442,7 @@ class ALPRapp:
                 radiobutton_height=18,
                 command=self.create_threshold_input,
             )
-            self.radio_gaussian_filter.place(in_=self.menu_frame, x=10, y=270)
+            self.radio_gaussian_filter.place(in_=self.menu_frame, x=10, y=250)
 
             ### OCR type
             ctk.CTkLabel(
@@ -405,14 +452,14 @@ class ALPRapp:
                 height=2,
                 fg_color="#575759",
                 font=ctk.CTkFont(size=1),
-            ).place(in_=self.menu_frame, x=10, y=300)
+            ).place(in_=self.menu_frame, x=10, y=280)
 
             ocr_type = ctk.CTkLabel(
                 self.menu_frame,
                 text="Tipo de OCR",
                 font=ctk.CTkFont(size=12),
                 width=200,
-            ).place(in_=self.menu_frame, y=305)
+            ).place(in_=self.menu_frame, y=285)
 
             self.radio_cloud_ocr = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -422,7 +469,7 @@ class ALPRapp:
                 radiobutton_width=18,
                 radiobutton_height=18,
             )
-            self.radio_cloud_ocr.place(in_=self.menu_frame, x=10, y=330)
+            self.radio_cloud_ocr.place(in_=self.menu_frame, x=10, y=310)
 
             self.radio_embedded_ocr = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -432,7 +479,7 @@ class ALPRapp:
                 radiobutton_width=18,
                 radiobutton_height=18,
             )
-            self.radio_embedded_ocr.place(in_=self.menu_frame, x=100, y=330)
+            self.radio_embedded_ocr.place(in_=self.menu_frame, x=100, y=310)
 
             ### Tilt angle detection type
             ctk.CTkLabel(
@@ -442,14 +489,14 @@ class ALPRapp:
                 height=2,
                 fg_color="#575759",
                 font=ctk.CTkFont(size=1),
-            ).place(in_=self.menu_frame, x=10, y=360)
+            ).place(in_=self.menu_frame, x=10, y=340)
 
             inclination_type = ctk.CTkLabel(
                 self.menu_frame,
                 text="Deteção de inclinação",
                 font=ctk.CTkFont(size=12),
                 width=200,
-            ).place(in_=self.menu_frame, y=365)
+            ).place(in_=self.menu_frame, y=345)
 
             self.radio_inclination_hough = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -459,7 +506,7 @@ class ALPRapp:
                 radiobutton_width=18,
                 radiobutton_height=18,
             )
-            self.radio_inclination_hough.place(in_=self.menu_frame, x=10, y=390)
+            self.radio_inclination_hough.place(in_=self.menu_frame, x=10, y=370)
 
             self.radio_inclination_rect = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -469,7 +516,7 @@ class ALPRapp:
                 radiobutton_width=18,
                 radiobutton_height=18,
             )
-            self.radio_inclination_rect.place(in_=self.menu_frame, x=100, y=390)
+            self.radio_inclination_rect.place(in_=self.menu_frame, x=100, y=370)
 
             ### Replace OCR string
             ctk.CTkLabel(
@@ -479,14 +526,14 @@ class ALPRapp:
                 height=2,
                 fg_color="#575759",
                 font=ctk.CTkFont(size=1),
-            ).place(in_=self.menu_frame, x=10, y=420)
+            ).place(in_=self.menu_frame, x=10, y=400)
 
             inclination_type = ctk.CTkLabel(
                 self.menu_frame,
                 text="Corrigir codigo",
                 font=ctk.CTkFont(size=12),
                 width=200,
-            ).place(in_=self.menu_frame, y=425)
+            ).place(in_=self.menu_frame, y=405)
 
             self.radio_inclination_hough = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -496,7 +543,7 @@ class ALPRapp:
                 radiobutton_width=18,
                 radiobutton_height=18,
             )
-            self.radio_inclination_hough.place(in_=self.menu_frame, x=10, y=450)
+            self.radio_inclination_hough.place(in_=self.menu_frame, x=10, y=430)
 
             self.radio_inclination_rect = ctk.CTkRadioButton(
                 self.menu_frame,
@@ -506,7 +553,7 @@ class ALPRapp:
                 radiobutton_width=18,
                 radiobutton_height=18,
             )
-            self.radio_inclination_rect.place(in_=self.menu_frame, x=100, y=450)
+            self.radio_inclination_rect.place(in_=self.menu_frame, x=100, y=430)
 
             ### Reliability Slider
             ctk.CTkLabel(
@@ -516,7 +563,7 @@ class ALPRapp:
                 height=2,
                 fg_color="#575759",
                 font=ctk.CTkFont(size=1),
-            ).place(in_=self.menu_frame, x=10, y=480)
+            ).place(in_=self.menu_frame, x=10, y=460)
 
             self.slider = ctk.CTkSlider(
                 self.menu_frame,
@@ -525,14 +572,14 @@ class ALPRapp:
                 width=180,
                 variable=self.slider_reliability,
                 command=self.slider_event,
-            ).place(in_=self.menu_frame, x=10, y=520)
+            ).place(in_=self.menu_frame, x=10, y=500)
 
             self.reliability_label = ctk.CTkLabel(
                 self.menu_frame,
                 text=f"Confiabilidade\t          {self.slider_reliability.get()} %",
                 font=ctk.CTkFont(size=12),
             )
-            self.reliability_label.place(in_=self.menu_frame, x=10, y=490)
+            self.reliability_label.place(in_=self.menu_frame, x=10, y=470)
 
         except Exception as e:
             print(f"Houve um problema ao criar os componentes do menu -> {e}")
@@ -542,16 +589,16 @@ class ALPRapp:
         try:
             ## Dividers
             ctk.CTkLabel(
-                self.botton_frame, text="", width=2, height=160, fg_color="#575759"
-            ).place(in_=self.botton_frame, x=195, y=35)
+                self.botton_frame, text="", width=2, height=120, fg_color="#575759"
+            ).place(in_=self.botton_frame, x=195, y=25)
 
             ctk.CTkLabel(
-                self.botton_frame, text="", width=2, height=160, fg_color="#575759"
-            ).place(in_=self.botton_frame, x=395, y=35)
+                self.botton_frame, text="", width=2, height=120, fg_color="#575759"
+            ).place(in_=self.botton_frame, x=395, y=25)
 
             ctk.CTkLabel(
-                self.botton_frame, text="", width=2, height=190, fg_color="#575759"
-            ).place(in_=self.botton_frame, x=600, y=5)
+                self.botton_frame, text="", width=2, height=120, fg_color="#575759"
+            ).place(in_=self.botton_frame, x=600, y=25)
 
             self.textStatus = ctk.CTkLabel(
                 self.botton_frame,
@@ -569,41 +616,41 @@ class ALPRapp:
             )
 
             ## Labels
-            ctk.CTkLabel(
-                self.botton_frame, text="Processamento", font=ctk.CTkFont(size=14)
-            ).place(in_=self.botton_frame, x=250, y=2)
+            # ctk.CTkLabel(
+            #     self.botton_frame, text="Processamento", font=ctk.CTkFont(size=14)
+            # ).place(in_=self.botton_frame, x=250, y=2)
 
             ctk.CTkLabel(
-                self.botton_frame, text="Resultado", font=ctk.CTkFont(size=14)
-            ).place(in_=self.botton_frame, x=700, y=2)
+                self.botton_frame, text="Resultado", font=ctk.CTkFont(size=12)
+            ).place(in_=self.botton_frame, x=610, y=2)
 
             ctk.CTkLabel(
-                self.botton_frame, text="Coordenadas", font=ctk.CTkFont(size=12)
-            ).place(in_=self.botton_frame, x=20, y=30)
+                self.botton_frame, text="Coordenadas", font=ctk.CTkFont(size=10)
+            ).place(in_=self.botton_frame, x=20, y=3)
 
             ctk.CTkLabel(
-                self.botton_frame, text="Escala de Cinza", font=ctk.CTkFont(size=12)
-            ).place(in_=self.botton_frame, x=220, y=30)
+                self.botton_frame, text="Escala de Cinza", font=ctk.CTkFont(size=10)
+            ).place(in_=self.botton_frame, x=220, y=3)
 
             ctk.CTkLabel(
-                self.botton_frame, text="Imagem Limiarizada", font=ctk.CTkFont(size=12)
-            ).place(in_=self.botton_frame, x=220, y=115)
+                self.botton_frame, text="Imagem Limiarizada", font=ctk.CTkFont(size=10)
+            ).place(in_=self.botton_frame, x=220, y=78)
 
             ctk.CTkLabel(
                 self.botton_frame,
                 text="Detecção de Inclinação",
-                font=ctk.CTkFont(size=12),
-            ).place(in_=self.botton_frame, x=420, y=30)
+                font=ctk.CTkFont(size=10),
+            ).place(in_=self.botton_frame, x=420, y=3)
 
             ctk.CTkLabel(
-                self.botton_frame, text="Imagem Reorientada", font=ctk.CTkFont(size=12)
-            ).place(in_=self.botton_frame, x=420, y=115)
+                self.botton_frame, text="Imagem Reorientada", font=ctk.CTkFont(size=10)
+            ).place(in_=self.botton_frame, x=420, y=78)
 
             ctk.CTkLabel(
                 self.botton_frame,
                 text="Imagem Segmentada",
-                font=ctk.CTkFont(size=12),
-            ).place(in_=self.botton_frame, x=20, y=115)
+                font=ctk.CTkFont(size=10),
+            ).place(in_=self.botton_frame, x=20, y=78)
 
             ## Images
             self.segmented_plate = ctk.CTkLabel(
@@ -659,7 +706,7 @@ class ALPRapp:
                 text="",
                 font=ctk.CTkFont(size=20),
                 width=190,
-                height=40,
+                height=30,
                 bg_color="#3c3c3d",
             )
 
@@ -670,24 +717,24 @@ class ALPRapp:
     def place_components(self):
         try:
             # Cam Frame
-            self.fps_cam.place(in_=self.cam_frame, relx=0.05, y=10)
-            self.videoCam.place(in_=self.cam_frame, x=10, y=50)
-            self.cam_switch.place(in_=self.cam_frame, x=600, y=10)
+            self.fps_cam.place(in_=self.cam_frame, relx=0.05, y=3)
+            self.videoCam.place(in_=self.cam_frame, x=30, y=30)
+            self.cam_switch.place(in_=self.cam_frame, x=625, y=3)
 
             # Botton Frame
-            self.textStatus.place(in_=self.botton_frame, x=20, y=60)
-            self.segmented_plate.place(in_=self.botton_frame, x=20, y=140)
+            self.textStatus.place(in_=self.botton_frame, x=20, y=25)
+            self.segmented_plate.place(in_=self.botton_frame, x=20, y=103)
 
-            self.gray_plate.place(in_=self.botton_frame, x=220, y=60)
-            self.thresholded_plate.place(in_=self.botton_frame, x=220, y=140)
+            self.gray_plate.place(in_=self.botton_frame, x=220, y=25)
+            self.thresholded_plate.place(in_=self.botton_frame, x=220, y=103)
 
-            self.rectangle_plate.place(in_=self.botton_frame, x=420, y=60)
-            self.reoriented_plate.place(in_=self.botton_frame, x=420, y=140)
+            self.rectangle_plate.place(in_=self.botton_frame, x=420, y=25)
+            self.reoriented_plate.place(in_=self.botton_frame, x=420, y=103)
 
-            self.ocr_raw_text.place(in_=self.botton_frame, x=640, y=30)
-            self.ocr_result.place(in_=self.botton_frame, x=640, y=50)
-            self.reliability_text.place(in_=self.botton_frame, x=640, y=120)
-            self.result_text.place(in_=self.botton_frame, x=640, y=140)
+            self.ocr_raw_text.place(in_=self.botton_frame, x=680, y=10)
+            self.ocr_result.place(in_=self.botton_frame, x=680, y=30)
+            self.reliability_text.place(in_=self.botton_frame, x=680, y=100)
+            self.result_text.place(in_=self.botton_frame, x=680, y=120)
 
         except Exception as e:
             print(f"Falha ao colocar os componentes. {e}")
@@ -833,6 +880,7 @@ class ALPRapp:
         self.root.after(100, self.verify_button)
 
     def video(self):
+
         self.frame_count_controller += 1
         frame, fps = utils.capture()
         self.fps_cam.configure(text=fps)
