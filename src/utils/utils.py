@@ -46,23 +46,27 @@ start_time = time.time()
 
 
 def capture():
-    global counter, start_time, fps
-    counter += 1
-    success, image = cap.read()
-    # if not success:
-    #     sys.exit(
-    #         "ERROR: Unable to read from webcam. Please verify your webcam settings."
-    #     )
-    # image = cv2.flip(image, -1)
-    # Calcula o FPS
-    if counter % 10 == 0:
-        end_time = time.time()
-        fps = 10 / (end_time - start_time)
-        start_time = end_time
-    fps_text = "{:.1f} fps".format(fps)
+    try:
+        global counter, start_time, fps
+        counter += 1
+        success, image = cap.read()
+        # if not success:
+        #     sys.exit(
+        #         "ERROR: Unable to read from webcam. Please verify your webcam settings."
+        #     )
+        # image = cv2.flip(image, -1)
+        # Calcula o FPS
+        if counter % 10 == 0:
+            end_time = time.time()
+            fps = 10 / (end_time - start_time)
+            start_time = end_time
+        fps_text = "{:.1f} fps".format(fps)
 
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    return image, fps_text
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        return image, fps_text
+    except Exception as e:
+        print(e)
+        return None, "00.0"
 
 
 # Processa a imagem e devolve um resultado de detecçao

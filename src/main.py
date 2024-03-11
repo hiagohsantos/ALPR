@@ -4,10 +4,11 @@ print('Carregango PIL')
 from PIL import Image, ImageTk
 print('Carregango OpenCV')
 import cv2
-import time
 print('Iniciando Tensor FLow')
 from utils import utils, textUtils
 print('Carregando aplicativo')
+import time
+from time import perf_counter
 from utils.addPlateWindow import ToplevelWindow
 import concurrent.futures
 import threading
@@ -20,11 +21,10 @@ import json
 
 ctk.set_appearance_mode("dark")
 
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Button
 GPIO.setup(11, GPIO.OUT)  # Servo Motor
-GPIO.setwarnings(False)
-
 
 class ALPRapp:
     def __init__(self) -> None:
@@ -48,6 +48,7 @@ class ALPRapp:
         self.threshold_var = ctk.StringVar(value="127")
         self.slider_reliability = ctk.IntVar(value=95)
         self.load_config()
+        self.perf_data = {}
         
         self.detection = False
         self.frame_count_controller = 0
@@ -153,6 +154,11 @@ class ALPRapp:
 
         except FileNotFoundError as e:
             print("Erro ao salvar o arquivo de configuracoes: ", e)
+
+    def save_perf_data(self, data):
+        with open("config.txt", "a") as file:
+                file.write(str(data))
+
 
     def load_images(self):
         self.mercosul_model_plate = ctk.CTkImage(
@@ -741,17 +747,16 @@ class ALPRapp:
 
     def starts_asynchronous_ocr(self, image):
         with concurrent.futures.ThreadPoolExecutor() as executor:
+            start_time = perf_counter()
             if self.ocr_type.get() == 1:
                 future_ocr_text = executor.submit(utils.ocr_goole_cloud, image)
             elif self.ocr_type.get() == 2:
                 future_ocr_text = executor.submit(utils.tesseract_ocr, image)
-
+                
             ocr_text = future_ocr_text.result()
-            
+            self.perf_data['ocr'] = perf_counter() - start_time
             if len(ocr_text) > 7:
                 ocr_text = ocr_text[1:8]
-         
-
             self.process_ocr_result(ocr_text)
 
     def starts_asynchronous_processing(self, image):
@@ -761,6 +766,7 @@ class ALPRapp:
         self.gray_plate.configure(image=self.tk_image(gray_image, 150, 50))
 
         with concurrent.futures.ThreadPoolExecutor() as executor:
+            start_time = perf_counter()
             future_thresholded_image = executor.submit(
                 utils.threshold_image,
                 gray_image,
@@ -771,8 +777,10 @@ class ALPRapp:
             self.thresholded_plate.configure(
                 image=self.tk_image(thresholded_image, 150, 50)
             )
+            self.perf_data['threshold'] = perf_counter() - start_time
 
             if self.inclination_type.get() == 2:
+                start_time_tilt_angle = perf_counter()
                 future_image_contourns = executor.submit(
                     utils.find_tilt_angle, thresholded_image
                 )
@@ -780,7 +788,7 @@ class ALPRapp:
                 self.rectangle_plate.configure(
                     image=self.tk_image(image_contourns, 150, 50)
                 )
-
+                self.perf_data['tilt_angle'] = perf_counter() - start_time_tilt_angle
                 box = cv2.boxPoints(rectangle).astype(int)
                 box = np.intp(box)
 
@@ -789,14 +797,16 @@ class ALPRapp:
                 max_x, max_y = np.max(box, axis=0)
                 cropped_image = thresholded_image[min_y:max_y, min_x:max_x]
             else:
+                start_time_tilt_angle = perf_counter()
                 future_image_contourns = executor.submit(
                     utils.find_tilt_angle_hough, gray_image
                 )
                 tilt_angle, canny_image = future_image_contourns.result()
+                self.perf_data['tilt_angle'] = perf_counter() - start_time_tilt_angle
                 self.rectangle_plate.configure(
                     image=self.tk_image(canny_image, 150, 50)
                 )
-
+            start_time_rotate = perf_counter()
             future_reoriented_image = executor.submit(
                 utils.rotate_image, gray_image, tilt_angle
             )
@@ -805,15 +815,19 @@ class ALPRapp:
             self.reoriented_plate.configure(
                 image=self.tk_image(reoriented_image, 150, 50)
             )
+            self.perf_data['rotate_time'] = perf_counter() - start_time_rotate
+            self.perf_data['total_processing_time'] = perf_counter() - start_time
 
             if not self.authorization:
                 self.starts_asynchronous_ocr(reoriented_image)
 
     def starts_asynchronous_detection(self, frame):
+        start_time = perf_counter()
         with concurrent.futures.ThreadPoolExecutor() as executor:
             future = executor.submit(utils.detect, frame)
             result = future.result()
             if result.detections:
+                self.perf_data['detection'] = perf_counter() - start_time
                 # Segmenta a imagem e redimensiona para 150x50 px
                 segImage, text, self.data_detection = utils.segImage(
                     frame.copy(), result
@@ -829,11 +843,13 @@ class ALPRapp:
                 
                 # cv2.imwrite(f"../captures/default/img-{time.time()}.png", cv2.cvtColor(segImage, cv2.COLOR_BGR2RGB))
                 self.starts_asynchronous_processing(segImage)
+                
 
             else:
                 self.textStatus.configure(text="Nada encontrado!")
                 self.textStatus.after(1000, lambda: self.textStatus.configure(text=""))
                 self.data_detection = None
+        
 
     def process_ocr_result(self, code):
         if len(code) == 7:
@@ -847,7 +863,13 @@ class ALPRapp:
             self.ocr_result.configure(image=self.mercosul_model_plate)
 
             score, plate_code = textUtils.string_simitality(self.code_list, code)
+            self.perf_data['detected_code'] = code
+            self.perf_data['closest_code'] = plate_code
+            self.perf_data['score'] = score
+
             print(score, plate_code)
+            print(self.perf_data)
+            self.save_perf_data(self.perf_data)
 
             if self.slider_reliability.get() / 100 <= score:
                 self.reliability_text.configure(
@@ -880,7 +902,6 @@ class ALPRapp:
         self.root.after(100, self.verify_button)
 
     def video(self):
-
         self.frame_count_controller += 1
         frame, fps = utils.capture()
         self.fps_cam.configure(text=fps)
