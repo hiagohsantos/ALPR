@@ -1,33 +1,50 @@
-print('Iniciando Custom Tkinter')
+from utils.splash_screen import SplashScreen
+splash = SplashScreen()
+
+splash.update('Iniciando CustomTkinter', 10)
 import customtkinter as ctk
-print('Carregango PIL')
+
+splash.update('Carregango Pillow', 20)
 from PIL import Image, ImageTk
-print('Carregango OpenCV')
+
+splash.update('Carregango OpenCV', 30)
 import cv2
-print('Iniciando Tensor FLow')
-from utils import utils, textUtils
-print('Carregando aplicativo')
+
+splash.update('Criando TensorFLow Lite', 40)
+from utils import utils
+
+splash.update('Importando utilitarios de texto', 50)
+from utils import text_utils
+
+splash.update('Importanto GPIO', 60)
+import RPi.GPIO as GPIO
+
+splash.update('Importando janelas auxiliares', 70)
+from utils.add_plate_window import ToplevelWindow
+
 import time
 from time import perf_counter
-from utils.addPlateWindow import ToplevelWindow
 import concurrent.futures
 import threading
 import re
 import numpy as np
 import os
-import RPi.GPIO as GPIO
 import cv2
 import json
 
 ctk.set_appearance_mode("dark")
 
+splash.update('Configurando GPIO', 80)
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Button
 GPIO.setup(11, GPIO.OUT)  # Servo Motor
 
+
 class ALPRapp:
     def __init__(self) -> None:
+        splash.update('Inicializando', 90)
+        
         self.root = ctk.CTk()
         self.startTimeRec = 0
         self.startTimeProgress = 0
@@ -71,6 +88,8 @@ class ALPRapp:
         self.servo = GPIO.PWM(11, 50)
         self.servo.start(0)
 
+        splash.update('Pronto', 100)
+        splash.close()
         self.video()
         self.verify_button()
         self.root.mainloop()
@@ -156,8 +175,8 @@ class ALPRapp:
             print("Erro ao salvar o arquivo de configuracoes: ", e)
 
     def save_perf_data(self, data):
-        with open("config.txt", "a") as file:
-                file.write(str(data))
+        with open("dados_performace.txt", "a") as file:
+                file.write(str(data)+"\n")
 
 
     def load_images(self):
@@ -247,7 +266,7 @@ class ALPRapp:
             self.detection = True
             if self.detection_type.get() == 3:
                 self.start_button.configure(fg_color="#f26f66", hover_color="#db4e44")
-                self.start_button.configure(text="Parar")
+                self.start_button.configure(text=" Parar ")
 
     def tk_image(self, image, x, y):
         image = Image.fromarray(image)
@@ -854,7 +873,7 @@ class ALPRapp:
     def process_ocr_result(self, code):
         if len(code) == 7:
             if self.apply_code_correction.get() == 1:
-                verified_code = textUtils.replace_ocr_code(code)
+                verified_code = text_utils.replace_ocr_code(code)
                 if verified_code != code:
                     self.ocr_raw_text.configure(text=code)
                 code = verified_code
@@ -862,7 +881,7 @@ class ALPRapp:
             self.ocr_result.configure(text=code)
             self.ocr_result.configure(image=self.mercosul_model_plate)
 
-            score, plate_code = textUtils.string_simitality(self.code_list, code)
+            score, plate_code = text_utils.string_simitality(self.code_list, code)
             self.perf_data['detected_code'] = code
             self.perf_data['closest_code'] = plate_code
             self.perf_data['score'] = score
@@ -942,6 +961,8 @@ class ALPRapp:
         else:
             self.videoCam.configure(image=self.cam_background)
         self.videoCam.after(1, self.video)
+
+
 
 
 if __name__ == "__main__":
