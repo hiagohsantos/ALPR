@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from utils import text_utils
-
+from time import sleep
 
 class ToplevelWindow(ctk.CTkToplevel):
     def __init__(self, *args, **kwargs):
@@ -18,8 +18,11 @@ class ToplevelWindow(ctk.CTkToplevel):
         self.load_data()
 
     def on_closing(self):
-        self.save_data()
-        self.destroy()
+        try:
+            self.save_data()
+            self.destroy()
+        except Exception as e:
+            print(f"Falha ao fechar janela de adicao de placas. {e}")
 
     def add_plate_code(self):
         string = self.plate_input.get().upper()

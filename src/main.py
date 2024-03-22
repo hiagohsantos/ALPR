@@ -1,25 +1,25 @@
-from utils.splash_screen import SplashScreen
-splash = SplashScreen()
+#from utils.splash_screen import SplashScreen
+#splash = SplashScreen()
 
-splash.update('Iniciando CustomTkinter', 10)
+#splash.update('Iniciando CustomTkinter', 10)
 import customtkinter as ctk
 
-splash.update('Carregango Pillow', 20)
+#splash.update('Carregango Pillow', 20)
 from PIL import Image, ImageTk
 
-splash.update('Carregango OpenCV', 30)
+#splash.update('Carregango OpenCV', 30)
 import cv2
 
-splash.update('Criando TensorFLow Lite', 40)
+#splash.update('Criando TensorFLow Lite', 40)
 from utils import utils
 
-splash.update('Importando utilitarios de texto', 50)
+#splash.update('Importando utilitarios de texto', 50)
 from utils import text_utils
 
-splash.update('Importanto GPIO', 60)
+#splash.update('Importanto GPIO', 60)
 import RPi.GPIO as GPIO
 
-splash.update('Importando janelas auxiliares', 70)
+#splash.update('Importando janelas auxiliares', 70)
 from utils.add_plate_window import ToplevelWindow
 
 import time
@@ -34,16 +34,15 @@ import json
 
 ctk.set_appearance_mode("dark")
 
-splash.update('Configurando GPIO', 80)
+#splash.update('Configurando GPIO', 80)
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Button
 GPIO.setup(11, GPIO.OUT)  # Servo Motor
 
-
 class ALPRapp:
     def __init__(self) -> None:
-        splash.update('Inicializando', 90)
+        #splash.update('Inicializando', 90)
         
         self.root = ctk.CTk()
         self.startTimeRec = 0
@@ -88,8 +87,8 @@ class ALPRapp:
         self.servo = GPIO.PWM(11, 50)
         self.servo.start(0)
 
-        splash.update('Pronto', 100)
-        splash.close()
+        #splash.update('Pronto', 100)
+        #splash.close()
         self.video()
         self.verify_button()
         self.root.mainloop()
@@ -105,7 +104,6 @@ class ALPRapp:
             self.servo.ChangeDutyCycle(2 + (angle / 18))
             time.sleep(0.5)
             self.servo.ChangeDutyCycle(0)
-
         except Exeption as e:
             print("Falha ao mover o Servo Motor")
 
@@ -188,16 +186,19 @@ class ALPRapp:
         )
 
     def open_toplevel(self):
-        if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
-            self.toplevel_window = ToplevelWindow(
-                self.root
-            )  # create window if its None or destroyed
-        else:
-            self.toplevel_window.focus()  # if window exists focus it
+        try:
+            if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
+                self.toplevel_window = ToplevelWindow(
+                    self.root
+                )  # create window if its None or destroyed
+            else:
+                self.toplevel_window.focus()  # if window exists focus it
 
-        self.root.wait_window(self.toplevel_window)
-        # Retrieve the list when the ToplevelWindow is closed
-        self.code_list = self.toplevel_window.save_data()
+            self.root.wait_window(self.toplevel_window)
+            # Retrieve the list when the ToplevelWindow is closed
+            self.code_list = self.toplevel_window.save_data()
+        except Exeption as e:
+            print(f"Falha ao gerenciar janelas de adicao de placas. {e}")
 
     def slider_event(self, value):
         if self.slider_reliability.get() == 100:
