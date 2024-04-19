@@ -16,7 +16,7 @@ Para efetuar o treinamento do modelo, o script contido na pasta `Model-Maker` po
 ## Monografia
 
 Para mais detalhes sobre o trabalho e o sistema, consulte a monografia associada.
-## EN-US
+# EN-US
 # ALPR System Documentation
 
 This system was developed as the final project for the Electronic and Telecommunications Engineering course at the Federal University of Uberlândia.
