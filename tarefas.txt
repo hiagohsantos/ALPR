@@ -1,4 +1,0 @@
-1. VErificar o KeyError quando o retorno da API nao possui o FullTextAnnotation
-
-6. Verificar a excecao que gera quando o angulo da placa é alto, acontece apenas para o modo de retangulo de menor area
-
