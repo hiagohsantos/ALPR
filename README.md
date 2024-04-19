@@ -15,7 +15,7 @@ Para efetuar o treinamento do modelo, o script contido na pasta `Model-Maker` po
 
 ## Monografia
 
-Para mais detalhes sobre o trabalho e o sistema, consulte a monografia associada.
+Para mais detalhes sobre o trabalho e o sistema, consulte a pasta `Monography`.
 # EN-US
 # ALPR System Documentation
 
@@ -37,4 +37,4 @@ To train the model, the script contained in the `Model-Maker` folder can be used
 
 ## Thesis
 
-For more details about the project and the system, refer to the associated thesis.
+To get more details about the work and the system, please refer to the Monography folder
