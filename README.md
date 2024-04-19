@@ -7,7 +7,7 @@ O sistema utiliza a biblioteca TensorFlow Lite para realizar a detecção de pla
 Diagrama do Sistema
 Um diagrama simplificado do sistema pode ser visto na imagem abaixo:
 
-Diagrama do Sistema
+
 ![image](https://github.com/hiagohsantos/ALPR/assets/98746083/e3ad1143-40a0-4bdb-81f2-c5e833233c3e)
 
 
