@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 402 339 271 645
+	type: motorcycle
+	make: Honda
+	model: CG
+	year: 2011
+plate: AUG-0936
+position_plate: 359 274 83 53
+	char 1: 503 730 14 19
+	char 2: 524 729 15 20
+	char 3: 545 729 14 17
+	char 4: 501 748 14 19
+	char 5: 517 748 13 18
+	char 6: 533 747 13 18
+	char 7: 548 747 13 18

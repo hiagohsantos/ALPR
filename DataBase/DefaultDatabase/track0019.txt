@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 992 357 105 266
+	type: motorcycle
+	make: Honda
+	model: CG
+	year: 2000
+plate: IJU-1870
+position_plate: 1039 510 36 30
+	char 1: 1046 517 3 10
+	char 2: 1054 518 7 10
+	char 3: 1063 519 6 9
+	char 4: 1045 528 3 8
+	char 5: 1050 528 7 9
+	char 6: 1058 528 5 10
+	char 7: 1065 529 6 9

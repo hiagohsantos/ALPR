@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 775 336 253 228
+	type: car
+	make: Citroen
+	model: C3
+	year: 2013
+plate: AXW-3998
+position_plate: 872 481 65 22
+	char 1: 875 487 8 12
+	char 2: 883 486 8 13
+	char 3: 891 487 7 12
+	char 4: 903 488 7 11
+	char 5: 911 488 7 11
+	char 6: 918 488 8 12
+	char 7: 926 488 8 12

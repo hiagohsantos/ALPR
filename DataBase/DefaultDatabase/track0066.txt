@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 802 282 297 248
+	type: car
+	make: Fiat
+	model: Siena
+	year: 2012
+plate: AVV-3850
+position_plate: 889 455 81 30
+	char 1: 895 463 8 14
+	char 2: 905 463 8 15
+	char 3: 914 464 8 15
+	char 4: 927 466 8 13
+	char 5: 936 466 8 14
+	char 6: 945 467 9 13
+	char 7: 954 468 9 13

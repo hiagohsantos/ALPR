@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 651 71 674 741
+	type: car
+	make: Renault
+	model: Master
+	year: 2016
+plate: BAU-3767
+position_plate: 332 275 137 50
+	char 1: 824 584 13 21
+	char 2: 839 584 13 22
+	char 3: 855 585 13 21
+	char 4: 878 587 13 21
+	char 5: 894 588 12 21
+	char 6: 909 589 11 20
+	char 7: 924 590 12 21

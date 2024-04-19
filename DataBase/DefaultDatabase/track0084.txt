@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 697 485 445 374
+	type: car
+	make: Peugeot
+	model: 308
+	year: 2012
+plate: BEE-8419
+position_plate: 868 763 110 40
+	char 1: 875 776 12 19
+	char 2: 888 777 12 18
+	char 3: 901 777 12 19
+	char 4: 921 778 12 18
+	char 5: 934 778 11 19
+	char 6: 951 779 3 18
+	char 7: 959 779 12 19

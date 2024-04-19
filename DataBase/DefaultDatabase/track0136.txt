@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 604 467 476 417
+	type: car
+	make: Ford
+	model: Ka
+	year: 2002
+plate: AMO-0663
+position_plate: 783 640 125 32
+	char 1: 792 649 13 18
+	char 2: 806 649 15 18
+	char 3: 822 649 13 18
+	char 4: 844 650 13 17
+	char 5: 859 651 13 16
+	char 6: 874 651 13 17
+	char 7: 888 651 14 17

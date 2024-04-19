@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 643 347 125 267
+	type: motorcycle
+	make: Yamaha
+	model: YS
+	year: 2015
+plate: BAA-2384
+position_plate: 696 501 40 37
+	char 1: 703 515 8 10
+	char 2: 712 512 7 10
+	char 3: 721 509 7 10
+	char 4: 704 525 9 10
+	char 5: 711 522 8 10
+	char 6: 717 520 8 10
+	char 7: 724 518 7 9

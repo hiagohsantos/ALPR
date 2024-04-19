@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 583 383 486 438
+	type: car
+	make: Nissan
+	model: Livina
+	year: 2013
+plate: AZC-3032
+position_plate: 770 704 127 42
+	char 1: 776 719 13 22
+	char 2: 791 719 14 21
+	char 3: 806 719 15 21
+	char 4: 829 719 14 21
+	char 5: 845 719 14 21
+	char 6: 860 719 13 21
+	char 7: 875 719 14 20

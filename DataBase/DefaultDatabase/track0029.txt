@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 1455 423 316 560
+	type: motorcycle
+	make: Honda
+	model: Biz
+	year: 2012
+plate: AWO-9786
+position_plate: 1666 787 88 57
+	char 1: 1685 802 13 19
+	char 2: 1700 801 17 20
+	char 3: 1720 803 17 18
+	char 4: 1687 822 15 17
+	char 5: 1701 822 11 18
+	char 6: 1716 822 15 18
+	char 7: 1730 822 14 19

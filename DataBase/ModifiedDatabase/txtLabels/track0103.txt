@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 1053 280 342 247
+	type: car
+	make: GM Chevrolet
+	model: Cruze
+	year: 2013
+plate: BCS-4525
+position_plate: 366 285 69 31
+	char 1: 1253 403 8 14
+	char 2: 1261 403 9 15
+	char 3: 1269 405 9 13
+	char 4: 1281 406 8 14
+	char 5: 1290 407 8 14
+	char 6: 1298 408 8 14
+	char 7: 1306 409 8 14

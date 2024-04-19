@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 714 279 103 261
+	type: motorcycle
+	make: Yamaha
+	model: YBR
+	year: 2014
+plate: AYP-7941
+position_plate: 383 286 34 29
+	char 1: 752 430 7 11
+	char 2: 760 431 8 10
+	char 3: 769 431 8 10
+	char 4: 751 440 6 10
+	char 5: 757 441 7 9
+	char 6: 764 441 6 10
+	char 7: 772 441 3 10

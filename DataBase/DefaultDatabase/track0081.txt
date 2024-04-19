@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 731 280 578 483
+	type: car
+	make: GM Chevrolet
+	model: Prisma
+	year: 2015
+plate: BAC-2766
+position_plate: 943 620 154 50
+	char 1: 951 637 17 27
+	char 2: 970 638 16 26
+	char 3: 988 637 17 27
+	char 4: 1016 637 18 26
+	char 5: 1034 637 17 26
+	char 6: 1053 637 17 26
+	char 7: 1071 637 18 26

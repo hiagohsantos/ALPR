@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 321 201 234 410
+	type: motorcycle
+	make: Honda
+	model: CG
+	year: 2016
+plate: BBN-3144
+position_plate: 333 468 45 45
+	char 1: 341 480 8 15
+	char 2: 352 479 8 15
+	char 3: 362 478 10 16
+	char 4: 337 496 9 14
+	char 5: 347 495 5 14
+	char 6: 354 494 8 15
+	char 7: 362 494 7 15

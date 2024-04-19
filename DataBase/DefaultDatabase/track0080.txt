@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 306 143 848 662
+	type: car
+	make: Mercedes-Benz
+	model: Atego 1718
+	year: 2007
+plate: APJ-3829
+position_plate: 688 606 132 44
+	char 1: 692 621 20 24
+	char 2: 713 621 18 23
+	char 3: 736 621 14 23
+	char 4: 756 622 15 23
+	char 5: 771 623 15 21
+	char 6: 786 623 14 22
+	char 7: 801 624 14 21

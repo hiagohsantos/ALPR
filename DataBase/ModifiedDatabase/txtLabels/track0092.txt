@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 803 367 281 245
+	type: car
+	make: GM Chevrolet
+	model: Classic
+	year: 2009
+plate: AQY-6388
+position_plate: 360 286 81 28
+	char 1: 912 492 9 14
+	char 2: 922 492 9 13
+	char 3: 932 491 9 15
+	char 4: 946 492 9 14
+	char 5: 955 492 10 14
+	char 6: 965 492 9 14
+	char 7: 975 493 9 13

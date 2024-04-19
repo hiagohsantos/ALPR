@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 768 337 196 177
+	type: car
+	make: GM Chevrolet
+	model: Montana
+	year: 2012
+plate: AVI-2214
+position_plate: 374 292 52 17
+	char 1: 843 436 7 9
+	char 2: 849 435 7 10
+	char 3: 857 435 4 10
+	char 4: 865 435 6 10
+	char 5: 871 435 6 10
+	char 6: 878 435 4 10
+	char 7: 883 435 6 10

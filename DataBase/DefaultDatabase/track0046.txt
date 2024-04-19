@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 1039 445 212 438
+	type: motorcycle
+	make: Suzuki
+	model: Intruder
+	year: 2008
+plate: AQC-5349
+position_plate: 1160 719 53 39
+	char 1: 1168 729 7 14
+	char 2: 1181 730 8 13
+	char 3: 1195 730 8 13
+	char 4: 1166 743 9 14
+	char 5: 1177 742 8 14
+	char 6: 1187 743 8 13
+	char 7: 1197 744 9 12

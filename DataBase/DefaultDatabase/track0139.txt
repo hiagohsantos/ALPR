@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 346 413 638 473
+	type: car
+	make: Nissan
+	model: Versa
+	year: 2016
+plate: BAP-8567
+position_plate: 663 617 144 47
+	char 1: 672 632 15 23
+	char 2: 690 632 14 24
+	char 3: 707 633 14 23
+	char 4: 733 633 14 22
+	char 5: 750 633 15 23
+	char 6: 767 633 14 23
+	char 7: 783 632 14 25

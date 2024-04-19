@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 1031 318 249 188
+	type: car
+	make: GM Chevrolet
+	model: Celta
+	year: 2010
+plate: ASZ-9457
+position_plate: 1176 399 53 22
+	char 1: 1180 405 6 11
+	char 2: 1186 406 7 10
+	char 3: 1192 406 7 11
+	char 4: 1201 407 7 10
+	char 5: 1208 408 6 10
+	char 6: 1213 408 7 10
+	char 7: 1220 409 6 10

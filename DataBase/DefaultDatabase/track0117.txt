@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 581 69 532 570
+	type: car
+	make: Mercedes-Benz
+	model: Neobus Mega BRT
+	year: 2013
+plate: AYE-1896
+position_plate: 806 586 88 31
+	char 1: 811 597 10 16
+	char 2: 822 597 9 15
+	char 3: 832 597 11 15
+	char 4: 850 597 5 15
+	char 5: 858 597 10 15
+	char 6: 868 597 10 15
+	char 7: 879 596 10 15

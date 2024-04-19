@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 611 0 686 636
+	type: car
+	make: Folle
+	model: Frigorífico
+	year: 2012
+plate: MJO-0862
+position_plate: 648 449 97 36
+	char 1: 652 457 14 20
+	char 2: 665 459 12 18
+	char 3: 676 460 13 18
+	char 4: 693 461 12 18
+	char 5: 705 462 11 18
+	char 6: 716 463 12 18
+	char 7: 728 464 12 18

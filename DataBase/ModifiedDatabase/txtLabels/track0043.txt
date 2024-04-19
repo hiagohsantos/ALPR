@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 494 483 434 340
+	type: car
+	make: Honda
+	model: Civic
+	year: 2015
+plate: BBS-8811
+position_plate: 346 282 108 36
+	char 1: 660 626 11 16
+	char 2: 673 626 10 16
+	char 3: 685 626 11 17
+	char 4: 704 627 11 16
+	char 5: 717 627 11 17
+	char 6: 733 627 4 18
+	char 7: 746 628 4 17

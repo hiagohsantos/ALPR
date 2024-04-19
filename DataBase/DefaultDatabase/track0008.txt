@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 775 315 253 221
+	type: car
+	make: Peugeot
+	model: 206
+	year: 2008
+plate: AQU-9177
+position_plate: 877 421 68 24
+	char 1: 882 428 7 12
+	char 2: 890 428 7 12
+	char 3: 898 428 7 12
+	char 4: 910 429 8 12
+	char 5: 920 429 4 13
+	char 6: 926 429 6 13
+	char 7: 933 429 8 13

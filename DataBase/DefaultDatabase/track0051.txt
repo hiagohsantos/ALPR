@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 666 469 365 309
+	type: car
+	make: Peugeot
+	model: 206
+	year: 2007
+plate: AOV-3566
+position_plate: 807 605 93 30
+	char 1: 812 614 9 16
+	char 2: 823 615 10 14
+	char 3: 834 614 10 16
+	char 4: 851 615 9 15
+	char 5: 862 615 10 15
+	char 6: 873 615 10 16
+	char 7: 884 616 10 15

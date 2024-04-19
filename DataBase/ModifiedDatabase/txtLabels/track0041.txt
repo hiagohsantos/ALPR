@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 1008 284 445 389
+	type: car
+	make: Volkswagen
+	model: Saveiro
+	year: 2013
+plate: AXI-0974
+position_plate: 342 279 116 42
+	char 1: 1180 560 11 19
+	char 2: 1193 560 13 19
+	char 3: 1211 561 4 18
+	char 4: 1228 562 10 17
+	char 5: 1241 563 11 17
+	char 6: 1255 563 10 18
+	char 7: 1268 563 11 19

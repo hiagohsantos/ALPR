@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 834 358 205 182
+	type: car
+	make: Volkswagen
+	model: Up
+	year: 2014
+plate: AYN-8015
+position_plate: 913 471 54 17
+	char 1: 916 475 6 10
+	char 2: 922 475 7 11
+	char 3: 929 475 7 11
+	char 4: 938 475 7 11
+	char 5: 945 475 7 11
+	char 6: 953 475 3 11
+	char 7: 957 475 7 11

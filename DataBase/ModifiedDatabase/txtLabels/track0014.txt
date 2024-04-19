@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 868 251 281 236
+	type: car
+	make: Hyundai
+	model: HB20
+	year: 2016
+plate: BAQ-6689
+position_plate: 365 288 70 24
+	char 1: 991 416 8 13
+	char 2: 1000 416 8 14
+	char 3: 1008 417 8 12
+	char 4: 1021 417 8 13
+	char 5: 1029 417 8 13
+	char 6: 1038 417 7 13
+	char 7: 1046 417 8 14

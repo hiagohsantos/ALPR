@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 523 352 307 249
+	type: car
+	make: Renault
+	model: Logan
+	year: 2008
+plate: AQL-0951
+position_plate: 679 518 68 25
+	char 1: 685 527 7 13
+	char 2: 693 528 7 11
+	char 3: 701 527 8 13
+	char 4: 714 527 7 12
+	char 5: 722 527 7 12
+	char 6: 730 526 7 12
+	char 7: 740 526 3 12

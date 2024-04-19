@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 718 211 275 256
+	type: car
+	make: Fiat
+	model: Toro
+	year: 2016
+plate: BAL-3161
+position_plate: 367 288 67 24
+	char 1: 822 398 8 13
+	char 2: 830 398 7 14
+	char 3: 837 398 9 14
+	char 4: 850 399 8 13
+	char 5: 859 399 6 13
+	char 6: 865 399 9 13
+	char 7: 875 399 6 14

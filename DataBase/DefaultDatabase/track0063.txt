@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 992 356 306 275
+	type: car
+	make: Fiat
+	model: Punto
+	year: 2016
+plate: BAP-7996
+position_plate: 1096 528 82 32
+	char 1: 1101 538 9 14
+	char 2: 1110 538 9 15
+	char 3: 1120 539 9 14
+	char 4: 1134 540 9 14
+	char 5: 1144 541 9 13
+	char 6: 1154 541 9 14
+	char 7: 1164 542 9 14

@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 797 282 236 184
+	type: car
+	make: GM Chevrolet
+	model: Montana
+	year: 2007
+plate: AHB-1989
+position_plate: 366 290 69 20
+	char 1: 888 450 9 10
+	char 2: 898 450 8 10
+	char 3: 906 450 8 10
+	char 4: 919 451 4 10
+	char 5: 924 451 7 10
+	char 6: 932 451 6 10
+	char 7: 939 451 6 10

@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 6 425 488 612
+	type: motorcycle
+	make: Honda
+	model: Shadow
+	year: 2006
+plate: DPD-4747
+position_plate: 6 264 104 72
+	char 1: 23 962 16 22
+	char 2: 45 962 18 23
+	char 3: 70 962 16 23
+	char 4: 17 986 14 23
+	char 5: 36 985 14 25
+	char 6: 53 986 13 24
+	char 7: 71 986 14 24

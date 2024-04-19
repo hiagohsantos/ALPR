@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 992 440 698 550
+	type: car
+	make: Renault
+	model: Sandero
+	year: 2008
+plate: EIW-6035
+position_plate: 1349 811 148 58
+	char 1: 1358 828 17 27
+	char 2: 1381 830 5 26
+	char 3: 1393 830 16 28
+	char 4: 1419 833 17 26
+	char 5: 1437 834 16 26
+	char 6: 1455 836 16 25
+	char 7: 1472 837 16 25

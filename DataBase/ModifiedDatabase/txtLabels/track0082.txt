@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 623 341 331 280
+	type: car
+	make: Renault
+	model: Logan
+	year: 2015
+plate: AZS-4450
+position_plate: 359 286 83 29
+	char 1: 758 533 9 14
+	char 2: 767 532 10 15
+	char 3: 777 532 11 14
+	char 4: 792 532 9 15
+	char 5: 802 532 9 15
+	char 6: 811 532 11 15
+	char 7: 822 532 10 15

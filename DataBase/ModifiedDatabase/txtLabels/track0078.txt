@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 686 502 159 370
+	type: motorcycle
+	make: Honda
+	model: NXR Bros
+	year: 2012
+plate: AVN-8735
+position_plate: 376 282 48 36
+	char 1: 744 731 7 11
+	char 2: 756 730 8 12
+	char 3: 767 730 10 11
+	char 4: 741 743 9 12
+	char 5: 751 742 8 13
+	char 6: 760 742 9 12
+	char 7: 770 742 8 12

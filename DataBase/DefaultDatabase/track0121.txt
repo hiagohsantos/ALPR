@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 1013 443 589 448
+	type: car
+	make: GM Chevrolet
+	model: Spin
+	year: 2015
+plate: AZU-3476
+position_plate: 1330 778 123 46
+	char 1: 1335 791 17 26
+	char 2: 1351 791 15 26
+	char 3: 1366 792 16 25
+	char 4: 1387 794 16 24
+	char 5: 1403 793 15 25
+	char 6: 1416 794 15 25
+	char 7: 1431 794 16 26

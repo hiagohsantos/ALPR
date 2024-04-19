@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 814 445 404 358
+	type: car
+	make: Volkswagen
+	model: Gol
+	year: 2008
+plate: AUD-1798
+position_plate: 345 282 110 37
+	char 1: 968 680 10 19
+	char 2: 981 680 11 19
+	char 3: 995 681 10 18
+	char 4: 1017 681 5 19
+	char 5: 1027 681 11 19
+	char 6: 1040 681 12 19
+	char 7: 1053 681 12 19

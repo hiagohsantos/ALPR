@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 651 454 478 371
+	type: car
+	make: Honda
+	model: Civic
+	year: 2017
+plate: BCJ-9595
+position_plate: 340 281 121 38
+	char 1: 835 633 13 22
+	char 2: 849 633 15 22
+	char 3: 864 633 14 21
+	char 4: 885 632 14 22
+	char 5: 899 632 15 21
+	char 6: 914 632 14 22
+	char 7: 928 632 15 22

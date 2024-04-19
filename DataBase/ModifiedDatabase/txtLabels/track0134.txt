@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 491 219 466 502
+	type: car
+	make: Renault
+	model: Kangoo
+	year: 2008
+plate: ARG-4938
+position_plate: 338 281 124 39
+	char 1: 594 488 14 23
+	char 2: 609 488 14 23
+	char 3: 623 487 16 22
+	char 4: 645 487 15 22
+	char 5: 660 487 15 22
+	char 6: 675 487 14 22
+	char 7: 689 487 15 22

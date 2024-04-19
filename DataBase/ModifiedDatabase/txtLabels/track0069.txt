@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 833 345 144 301
+	type: motorcycle
+	make: Honda
+	model: NXR Bros
+	year: 2015
+plate: BAJ-8206
+position_plate: 381 283 39 34
+	char 1: 891 544 7 11
+	char 2: 901 544 7 12
+	char 3: 911 544 8 12
+	char 4: 889 556 7 10
+	char 5: 896 555 8 12
+	char 6: 904 556 8 11
+	char 7: 912 556 8 12

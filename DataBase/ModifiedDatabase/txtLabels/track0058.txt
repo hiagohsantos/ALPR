@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 789 255 193 407
+	type: motorcycle
+	make: Honda
+	model: Biz
+	year: 2015
+plate: AZR-4291
+position_plate: 374 282 52 37
+	char 1: 872 527 8 12
+	char 2: 884 526 10 13
+	char 3: 898 526 11 13
+	char 4: 869 539 9 14
+	char 5: 879 539 11 14
+	char 6: 890 539 10 13
+	char 7: 903 539 5 13

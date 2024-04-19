@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 504 394 589 510
+	type: car
+	make: Renault
+	model: Duster
+	year: 2011
+plate: AUM-1821
+position_plate: 331 275 139 50
+	char 1: 772 632 15 24
+	char 2: 789 632 15 25
+	char 3: 806 633 14 24
+	char 4: 836 635 4 22
+	char 5: 848 635 13 23
+	char 6: 863 635 15 24
+	char 7: 885 637 4 22

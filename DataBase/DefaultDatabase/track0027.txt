@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 814 428 672 502
+	type: car
+	make: Fiat
+	model: Palio
+	year: 2006
+plate: MCX-7264
+position_plate: 1086 807 170 56
+	char 1: 1096 828 19 28
+	char 2: 1118 828 17 27
+	char 3: 1138 827 19 28
+	char 4: 1168 828 15 27
+	char 5: 1188 827 17 27
+	char 6: 1211 826 14 26
+	char 7: 1231 826 15 28

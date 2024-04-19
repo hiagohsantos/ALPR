@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 241 466 373 247
+	type: car
+	make: Ford
+	model: Fiesta Sedan
+	year: 2012
+plate: BBI-8600
+position_plate: 323 287 75 27
+	char 1: 328 577 7 12
+	char 2: 336 576 8 12
+	char 3: 347 575 3 13
+	char 4: 358 574 8 12
+	char 5: 366 573 9 12
+	char 6: 375 573 9 12
+	char 7: 384 572 9 13

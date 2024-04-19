@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 636 375 451 426
+	type: car
+	make: Fiat
+	model: Idea
+	year: 2007
+plate: API-7304
+position_plate: 343 282 115 36
+	char 1: 816 588 12 18
+	char 2: 830 588 11 18
+	char 3: 847 588 5 18
+	char 4: 864 588 10 18
+	char 5: 878 588 11 18
+	char 6: 891 588 11 17
+	char 7: 905 588 11 18

@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 837 344 238 217
+	type: car
+	make: Fiat
+	model: Siena
+	year: 2011
+plate: AUD-7172
+position_plate: 930 485 65 22
+	char 1: 934 492 8 12
+	char 2: 942 492 7 12
+	char 3: 950 493 7 11
+	char 4: 961 492 7 12
+	char 5: 971 492 3 12
+	char 6: 976 492 7 13
+	char 7: 983 492 9 12

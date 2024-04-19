@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 726 216 231 262
+	type: car
+	make: Volkswagen
+	model: Kombi
+	year: 2007
+plate: APE-4685
+position_plate: 812 385 58 19
+	char 1: 814 391 8 12
+	char 2: 821 391 8 11
+	char 3: 829 391 7 11
+	char 4: 839 391 7 10
+	char 5: 846 391 6 10
+	char 6: 852 390 8 11
+	char 7: 860 391 6 10

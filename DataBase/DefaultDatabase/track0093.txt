@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 631 354 277 244
+	type: car
+	make: GM Chevrolet
+	model: Onix
+	year: 2015
+plate: AZZ-6958
+position_plate: 740 509 70 25
+	char 1: 744 518 8 13
+	char 2: 752 518 8 12
+	char 3: 761 518 8 12
+	char 4: 773 517 8 13
+	char 5: 782 517 7 13
+	char 6: 790 517 8 12
+	char 7: 798 517 8 12

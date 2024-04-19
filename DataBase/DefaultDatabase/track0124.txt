@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 604 492 462 391
+	type: car
+	make: Volkswagen
+	model: Gol
+	year: 1999
+plate: MAW-3186
+position_plate: 774 740 128 40
+	char 1: 780 751 16 24
+	char 2: 796 751 14 25
+	char 3: 810 751 16 26
+	char 4: 831 752 18 24
+	char 5: 850 752 10 24
+	char 6: 863 753 14 22
+	char 7: 879 753 14 23

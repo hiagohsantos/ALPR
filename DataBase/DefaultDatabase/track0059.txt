@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 817 210 211 485
+	type: motorcycle
+	make: Yamaha
+	model: XTZ
+	year: 2017
+plate: BBO-8514
+position_plate: 893 495 61 49
+	char 1: 902 507 11 15
+	char 2: 918 508 11 15
+	char 3: 934 509 11 15
+	char 4: 899 523 11 16
+	char 5: 911 524 12 16
+	char 6: 927 524 4 16
+	char 7: 935 524 11 17

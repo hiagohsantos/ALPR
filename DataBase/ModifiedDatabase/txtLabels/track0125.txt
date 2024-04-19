@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 624 418 418 359
+	type: car
+	make: Honda
+	model: Fit
+	year: 2014
+plate: AYB-1489
+position_plate: 348 283 105 34
+	char 1: 791 582 11 18
+	char 2: 803 582 12 18
+	char 3: 816 582 11 18
+	char 4: 838 582 5 18
+	char 5: 847 582 11 18
+	char 6: 860 582 11 18
+	char 7: 873 583 10 17

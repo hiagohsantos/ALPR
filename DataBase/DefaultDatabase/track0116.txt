@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 369 341 477 363
+	type: car
+	make: Ford
+	model: Ka
+	year: 2016
+plate: PYP-1906
+position_plate: 506 591 106 36
+	char 1: 512 606 11 17
+	char 2: 525 605 11 18
+	char 3: 538 605 10 17
+	char 4: 560 604 4 17
+	char 5: 569 603 11 18
+	char 6: 582 602 11 17
+	char 7: 595 602 11 17

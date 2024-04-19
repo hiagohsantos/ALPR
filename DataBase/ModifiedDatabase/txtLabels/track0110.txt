@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 835 310 140 312
+	type: motorcycle
+	make: Yamaha
+	model: XTZ
+	year: 2017
+plate: BBO-8514
+position_plate: 379 283 42 35
+	char 1: 895 515 8 12
+	char 2: 906 515 8 12
+	char 3: 916 515 9 12
+	char 4: 894 527 8 11
+	char 5: 902 527 8 11
+	char 6: 912 527 4 11
+	char 7: 918 527 8 11

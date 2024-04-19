@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 283 453 597 474
+	type: car
+	make: GM Chevrolet
+	model: Prisma
+	year: 2014
+plate: AYM-6288
+position_plate: 480 782 161 56
+	char 1: 491 803 15 27
+	char 2: 511 803 16 28
+	char 3: 529 802 17 27
+	char 4: 558 802 17 26
+	char 5: 577 801 18 26
+	char 6: 597 801 16 25
+	char 7: 616 801 15 26

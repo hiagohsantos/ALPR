@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 611 0 512 451
+	type: car
+	make: Mercedes-Benz
+	model: OF-1418 Neobus Mega
+	year: 2011
+plate: AVA-1466
+position_plate: 825 322 85 26
+	char 1: 828 329 11 15
+	char 2: 839 329 10 15
+	char 3: 850 330 10 14
+	char 4: 868 330 5 15
+	char 5: 876 331 9 14
+	char 6: 886 331 10 14
+	char 7: 897 331 10 14

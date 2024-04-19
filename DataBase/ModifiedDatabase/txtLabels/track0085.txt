@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 59 417 826 569
+	type: car
+	make: Ford
+	model: Del Rey
+	year: 1990
+plate: AAJ-5801
+position_plate: 298 267 205 67
+	char 1: 359 745 30 34
+	char 2: 390 745 28 34
+	char 3: 425 745 22 33
+	char 4: 459 745 21 35
+	char 5: 481 746 20 34
+	char 6: 502 748 20 32
+	char 7: 527 746 14 34

@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 935 295 360 313
+	type: car
+	make: Ford
+	model: Focus Hatch
+	year: 2008
+plate: AQF-6375
+position_plate: 351 283 98 34
+	char 1: 1088 432 11 17
+	char 2: 1100 432 9 16
+	char 3: 1111 433 10 16
+	char 4: 1128 434 11 16
+	char 5: 1139 434 11 16
+	char 6: 1151 435 9 16
+	char 7: 1163 436 10 16

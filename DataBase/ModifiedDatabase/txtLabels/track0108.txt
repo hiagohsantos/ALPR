@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 657 9 531 562
+	type: car
+	make: Mercedes-Benz
+	model: OF-1418 Neobus Mega
+	year: 2009
+plate: ARY-9308
+position_plate: 353 285 94 30
+	char 1: 878 430 10 16
+	char 2: 889 431 11 16
+	char 3: 900 431 11 16
+	char 4: 916 432 11 16
+	char 5: 927 432 11 15
+	char 6: 938 432 10 15
+	char 7: 949 432 10 15

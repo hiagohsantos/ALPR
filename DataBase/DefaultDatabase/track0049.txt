@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 890 502 278 232
+	type: car
+	make: Volkswagen
+	model: Gol
+	year: 2003
+plate: ALK-3720
+position_plate: 1006 650 71 25
+	char 1: 1012 657 6 12
+	char 2: 1019 658 8 12
+	char 3: 1027 659 8 12
+	char 4: 1040 659 8 12
+	char 5: 1049 659 6 13
+	char 6: 1056 660 9 12
+	char 7: 1065 661 7 11

@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 725 508 341 301
+	type: car
+	make: Volkswagen
+	model: Gol
+	year: 2007
+plate: APD-4389
+position_plate: 354 285 92 30
+	char 1: 855 716 10 17
+	char 2: 866 717 10 16
+	char 3: 877 717 10 15
+	char 4: 893 718 10 15
+	char 5: 904 717 10 16
+	char 6: 915 717 10 16
+	char 7: 925 717 11 16

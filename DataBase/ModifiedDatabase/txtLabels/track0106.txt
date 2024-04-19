@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 661 343 305 249
+	type: car
+	make: GM Chevrolet
+	model: C-10
+	year: 1978
+plate: ABN-8528
+position_plate: 366 288 68 25
+	char 1: 862 534 10 14
+	char 2: 872 534 9 12
+	char 3: 882 533 10 13
+	char 4: 894 533 8 12
+	char 5: 902 532 7 12
+	char 6: 909 531 7 13
+	char 7: 916 531 7 12

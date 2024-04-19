@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 869 292 308 285
+	type: car
+	make: Volkswagen
+	model: Fox
+	year: 2013
+plate: AXV-9857
+position_plate: 360 288 81 24
+	char 1: 987 478 10 14
+	char 2: 997 478 10 15
+	char 3: 1007 478 8 15
+	char 4: 1020 479 10 14
+	char 5: 1030 479 9 14
+	char 6: 1039 479 10 14
+	char 7: 1049 479 9 14

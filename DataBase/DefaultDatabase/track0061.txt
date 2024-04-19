@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 751 315 310 275
+	type: car
+	make: Volvo
+	model: XC60
+	year: 2014
+plate: AYU-0035
+position_plate: 871 436 79 27
+	char 1: 877 446 7 12
+	char 2: 886 446 8 12
+	char 3: 895 446 8 12
+	char 4: 909 446 8 12
+	char 5: 918 446 8 12
+	char 6: 927 446 8 13
+	char 7: 936 446 9 13

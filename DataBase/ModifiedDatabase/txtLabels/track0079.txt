@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 194 423 321 579
+	type: motorcycle
+	make: Honda
+	model: CG
+	year: 2005
+plate: AMT-9382
+position_plate: 210 271 90 59
+	char 1: 226 778 15 20
+	char 2: 246 779 19 20
+	char 3: 270 780 13 19
+	char 4: 217 799 18 20
+	char 5: 233 800 17 20
+	char 6: 248 800 17 19
+	char 7: 264 801 15 19

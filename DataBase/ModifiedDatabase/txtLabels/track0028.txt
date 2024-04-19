@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 538 253 549 624
+	type: car
+	make: Land Rover
+	model: Defender 110
+	year: 2000
+plate: BSV-9863
+position_plate: 338 278 124 45
+	char 1: 545 579 15 23
+	char 2: 561 579 15 23
+	char 3: 578 579 14 23
+	char 4: 598 579 15 23
+	char 5: 615 579 14 23
+	char 6: 630 580 15 22
+	char 7: 645 580 15 23

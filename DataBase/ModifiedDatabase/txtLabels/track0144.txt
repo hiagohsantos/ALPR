@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 678 432 631 485
+	type: car
+	make: Renault
+	model: Sandero
+	year: 2014
+plate: AYL-2104
+position_plate: 330 274 140 52
+	char 1: 1002 781 16 25
+	char 2: 1018 779 17 26
+	char 3: 1034 780 17 26
+	char 4: 1059 782 17 25
+	char 5: 1081 782 7 26
+	char 6: 1093 782 16 26
+	char 7: 1109 783 14 25

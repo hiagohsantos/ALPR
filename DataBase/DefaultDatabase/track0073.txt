@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 1088 488 317 198
+	type: car
+	make: Hyundai
+	model: HB20
+	year: 2014
+plate: AZD-7301
+position_plate: 1267 620 60 20
+	char 1: 1270 625 6 11
+	char 2: 1276 626 7 9
+	char 3: 1284 626 7 9
+	char 4: 1294 626 6 10
+	char 5: 1301 626 7 10
+	char 6: 1309 627 7 9
+	char 7: 1318 627 3 9

@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 746 26 657 695
+	type: car
+	make: Mercedes-Benz
+	model: Marcopolo Torino
+	year: 2012
+plate: AUU-0538
+position_plate: 347 283 106 34
+	char 1: 1028 540 11 15
+	char 2: 1040 541 12 16
+	char 3: 1052 542 12 15
+	char 4: 1071 543 13 16
+	char 5: 1084 544 13 16
+	char 6: 1097 545 12 15
+	char 7: 1110 546 11 14

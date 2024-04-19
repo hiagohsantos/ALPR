@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 0 461 593 391
+	type: car
+	make: Volkswagen
+	model: Voyage
+	year: 2011
+plate: ATP-2537
+position_plate: 28 279 135 43
+	char 1: 34 735 15 22
+	char 2: 51 734 16 23
+	char 3: 66 733 16 24
+	char 4: 89 734 17 23
+	char 5: 105 734 17 22
+	char 6: 120 734 17 22
+	char 7: 137 734 16 22

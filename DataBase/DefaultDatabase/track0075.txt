@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 554 414 572 506
+	type: car
+	make: Volkswagen
+	model: Tiguan
+	year: 2013
+plate: AXI-6082
+position_plate: 770 714 144 48
+	char 1: 780 731 13 25
+	char 2: 795 731 16 24
+	char 3: 818 730 5 25
+	char 4: 839 730 14 24
+	char 5: 856 730 14 24
+	char 6: 873 730 14 23
+	char 7: 889 730 15 23

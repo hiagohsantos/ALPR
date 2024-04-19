@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 701 285 182 423
+	type: motorcycle
+	make: Honda
+	model: CG
+	year: 2016
+plate: BAS-8216
+position_plate: 762 557 55 43
+	char 1: 771 568 9 14
+	char 2: 785 569 9 14
+	char 3: 799 570 10 13
+	char 4: 769 582 8 14
+	char 5: 778 582 11 15
+	char 6: 793 583 3 14
+	char 7: 800 583 10 14

@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 733 0 527 501
+	type: car
+	make: Mercedes-Benz
+	model: Neobus Mega
+	year: 2013
+plate: AXW-8502
+position_plate: 952 359 85 28
+	char 1: 956 368 10 15
+	char 2: 966 368 10 15
+	char 3: 976 368 11 16
+	char 4: 992 369 10 15
+	char 5: 1002 369 10 15
+	char 6: 1012 369 10 15
+	char 7: 1022 369 10 15

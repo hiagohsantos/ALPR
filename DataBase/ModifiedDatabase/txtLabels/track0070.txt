@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 762 90 431 448
+	type: car
+	make: Mercedes-Benz
+	model: Neobus Mega
+	year: 2014
+plate: AZD-9925
+position_plate: 364 288 72 24
+	char 1: 944 434 9 13
+	char 2: 952 435 10 13
+	char 3: 962 435 9 13
+	char 4: 974 436 9 13
+	char 5: 983 437 9 13
+	char 6: 992 437 9 13
+	char 7: 1001 437 8 13

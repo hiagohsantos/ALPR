@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 719 475 431 387
+	type: car
+	make: Volkswagen
+	model: Gol
+	year: 2013
+plate: AXN-6071
+position_plate: 887 719 116 35
+	char 1: 896 730 11 19
+	char 2: 909 730 11 19
+	char 3: 922 729 13 21
+	char 4: 943 731 11 18
+	char 5: 957 731 11 18
+	char 6: 969 731 12 18
+	char 7: 987 731 5 19

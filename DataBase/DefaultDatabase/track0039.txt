@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 373 153 721 719
+	type: car
+	make: Peugeot
+	model: Boxer
+	year: 2014
+plate: AYE-3205
+position_plate: 515 544 153 50
+	char 1: 522 562 18 26
+	char 2: 540 561 19 27
+	char 3: 559 562 19 26
+	char 4: 587 563 17 25
+	char 5: 604 563 19 25
+	char 6: 623 563 17 25
+	char 7: 641 563 18 25

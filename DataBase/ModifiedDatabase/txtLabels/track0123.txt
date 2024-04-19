@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 612 431 161 335
+	type: motorcycle
+	make: Honda
+	model: CG
+	year: 2010
+plate: ASG-9143
+position_plate: 375 282 50 37
+	char 1: 687 634 9 14
+	char 2: 698 634 9 11
+	char 3: 709 632 9 11
+	char 4: 686 647 10 11
+	char 5: 698 644 4 12
+	char 6: 704 642 9 11
+	char 7: 713 641 9 12

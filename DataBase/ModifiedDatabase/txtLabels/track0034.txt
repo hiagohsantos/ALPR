@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 391 502 314 239
+	type: car
+	make: JAC
+	model: J2
+	year: 2012
+plate: FGD-3938
+position_plate: 365 287 70 26
+	char 1: 489 681 7 12
+	char 2: 497 681 7 11
+	char 3: 506 681 7 11
+	char 4: 516 680 7 11
+	char 5: 524 679 8 12
+	char 6: 532 679 8 11
+	char 7: 541 679 7 11

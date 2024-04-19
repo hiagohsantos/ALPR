@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 617 0 631 514
+	type: car
+	make: Mercedes-Benz
+	model: Apache
+	year: 2016
+plate: BBA-9166
+position_plate: 882 334 103 36
+	char 1: 886 344 14 21
+	char 2: 899 345 13 20
+	char 3: 912 345 11 20
+	char 4: 929 347 14 19
+	char 5: 944 346 8 21
+	char 6: 954 347 13 19
+	char 7: 967 347 12 19

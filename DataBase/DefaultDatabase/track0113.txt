@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 679 399 310 291
+	type: car
+	make: Ford
+	model: Ka
+	year: 2015
+plate: PWC-3858
+position_plate: 795 603 79 31
+	char 1: 800 615 9 15
+	char 2: 810 615 9 15
+	char 3: 819 615 9 14
+	char 4: 833 614 9 15
+	char 5: 843 614 9 14
+	char 6: 853 614 8 14
+	char 7: 862 614 8 14

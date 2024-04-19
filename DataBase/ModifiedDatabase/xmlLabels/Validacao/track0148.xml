@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<annotation>
+    <folder>images</folder>
+    <filename>track0148.jpg</filename>
+    <path>E:\Codigos\ModelMakerALPR\ModifiedDatabase\images/track0148.jpg</path>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>800</width>
+        <height>600</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>placa</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>357</xmin>
+            <ymin>272</ymin>
+            <xmax>443</xmax>
+            <ymax>329</ymax>
+        </bndbox>
+    </object>
+</annotation>

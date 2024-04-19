@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 142 320 970 561
+	type: car
+	make: Mercedes-Benz
+	model: L 1318
+	year: 1987
+plate: MAK-0198
+position_plate: 337 278 126 44
+	char 1: 341 699 19 23
+	char 2: 361 699 17 23
+	char 3: 380 699 17 23
+	char 4: 402 701 14 22
+	char 5: 419 701 9 23
+	char 6: 430 701 14 23
+	char 7: 445 702 14 22

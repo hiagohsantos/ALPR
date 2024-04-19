@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 709 0 678 583
+	type: car
+	make: Mercedes-Benz
+	model: OF-1722M Neobus
+	year: 2010
+plate: ATH-2468
+position_plate: 992 397 111 33
+	char 1: 999 408 11 16
+	char 2: 1012 408 13 17
+	char 3: 1025 409 13 17
+	char 4: 1045 410 12 17
+	char 5: 1057 410 13 16
+	char 6: 1071 412 13 15
+	char 7: 1084 412 13 15

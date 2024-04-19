@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 729 447 404 368
+	type: car
+	make: Fiat
+	model: Strada
+	year: 2012
+plate: AVD-4791
+position_plate: 347 282 107 37
+	char 1: 887 716 12 19
+	char 2: 900 716 11 19
+	char 3: 912 717 12 19
+	char 4: 931 716 11 21
+	char 5: 943 717 11 20
+	char 6: 955 718 12 19
+	char 7: 970 718 6 19

@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 738 448 352 310
+	type: car
+	make: Volkswagen
+	model: Parati
+	year: 1995
+plate: LAU-0047
+position_plate: 868 603 93 32
+	char 1: 873 614 10 16
+	char 2: 884 614 11 17
+	char 3: 895 613 11 17
+	char 4: 912 614 10 16
+	char 5: 923 614 10 16
+	char 6: 934 615 10 15
+	char 7: 945 614 11 16

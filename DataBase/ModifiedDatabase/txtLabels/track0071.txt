@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 729 427 409 351
+	type: car
+	make: Honda
+	model: HR-V
+	year: 2016
+plate: FXB-3765
+position_plate: 351 283 99 35
+	char 1: 894 562 12 18
+	char 2: 906 562 12 18
+	char 3: 918 562 11 17
+	char 4: 936 562 11 17
+	char 5: 947 561 11 18
+	char 6: 959 561 12 17
+	char 7: 971 561 12 17

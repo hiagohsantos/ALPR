@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 818 262 656 559
+	type: car
+	make: Ford
+	model: Fiesta
+	year: 2011
+plate: ATT-4025
+position_plate: 313 270 175 60
+	char 1: 1082 528 20 29
+	char 2: 1104 528 18 29
+	char 3: 1124 529 19 29
+	char 4: 1155 531 20 29
+	char 5: 1175 532 20 29
+	char 6: 1196 532 21 30
+	char 7: 1217 533 20 29

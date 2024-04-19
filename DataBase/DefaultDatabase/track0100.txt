@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 523 245 326 279
+	type: car
+	make: Fiat
+	model: Uno
+	year: 2011
+plate: ISK-7086
+position_plate: 622 451 83 28
+	char 1: 627 460 5 15
+	char 2: 634 460 10 16
+	char 3: 644 460 10 16
+	char 4: 659 460 9 15
+	char 5: 668 461 10 15
+	char 6: 679 461 9 15
+	char 7: 688 461 10 15

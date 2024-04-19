@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 625 432 301 240
+	type: car
+	make: GM Chevrolet
+	model: Caravan
+	year: 1976
+plate: AIQ-1056
+position_plate: 362 288 77 25
+	char 1: 746 604 11 14
+	char 2: 759 604 4 14
+	char 3: 766 604 10 14
+	char 4: 783 604 5 14
+	char 5: 790 604 8 15
+	char 6: 798 603 8 15
+	char 7: 806 603 8 15

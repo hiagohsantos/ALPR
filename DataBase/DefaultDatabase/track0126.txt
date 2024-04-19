@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 468 460 460 424
+	type: car
+	make: Volkswagen
+	model: Fox
+	year: 2005
+plate: AVI-0949
+position_plate: 636 725 124 38
+	char 1: 643 736 14 23
+	char 2: 659 736 13 22
+	char 3: 676 736 7 22
+	char 4: 694 736 14 22
+	char 5: 709 736 13 21
+	char 6: 723 737 13 21
+	char 7: 737 737 14 21

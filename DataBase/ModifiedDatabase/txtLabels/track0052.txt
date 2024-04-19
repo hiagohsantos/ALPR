@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 694 435 401 374
+	type: car
+	make: GM Chevrolet
+	model: Spin
+	year: 2014
+plate: AZH-5961
+position_plate: 349 282 102 36
+	char 1: 849 724 11 17
+	char 2: 860 724 13 17
+	char 3: 873 724 11 18
+	char 4: 891 725 11 17
+	char 5: 903 725 11 18
+	char 6: 915 726 11 17
+	char 7: 930 726 5 17

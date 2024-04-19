@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 1066 431 767 570
+	type: car
+	make: Citroen
+	model: C3
+	year: 2013
+plate: AWZ-9807
+position_plate: 1644 691 133 51
+	char 1: 1653 708 14 28
+	char 2: 1666 708 16 27
+	char 3: 1683 708 16 26
+	char 4: 1707 709 14 26
+	char 5: 1723 709 14 25
+	char 6: 1738 709 14 25
+	char 7: 1753 709 14 26

@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 613 122 477 511
+	type: car
+	make: Scania
+	model: Neobus Mega
+	year: 2013
+plate: AXW-9978
+position_plate: 809 580 78 25
+	char 1: 813 587 9 14
+	char 2: 822 587 10 14
+	char 3: 832 587 10 14
+	char 4: 846 588 9 13
+	char 5: 855 588 10 13
+	char 6: 865 588 9 13
+	char 7: 874 588 9 13

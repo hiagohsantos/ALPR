@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 888 470 586 503
+	type: car
+	make: Fiat
+	model: Palio
+	year: 2004
+plate: AMK-8734
+position_plate: 1129 686 156 57
+	char 1: 1137 704 16 26
+	char 2: 1155 705 18 26
+	char 3: 1174 705 17 27
+	char 4: 1202 708 17 26
+	char 5: 1220 708 17 27
+	char 6: 1239 709 17 27
+	char 7: 1258 710 16 27

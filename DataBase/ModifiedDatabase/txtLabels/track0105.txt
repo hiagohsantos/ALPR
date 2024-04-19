@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 1166 326 170 354
+	type: motorcycle
+	make: Yamaha
+	model: XTZ
+	year: 2012
+plate: AEK-0977
+position_plate: 373 274 55 52
+	char 1: 1208 555 11 14
+	char 2: 1220 559 12 15
+	char 3: 1231 563 13 16
+	char 4: 1202 567 12 14
+	char 5: 1211 570 12 15
+	char 6: 1220 574 11 14
+	char 7: 1228 577 12 14

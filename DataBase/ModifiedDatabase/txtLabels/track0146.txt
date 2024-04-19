@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 1041 440 810 595
+	type: car
+	make: Fiat
+	model: Uno
+	year: 2000
+plate: AJG-2630
+position_plate: 310 267 180 66
+	char 1: 1476 754 20 30
+	char 2: 1498 755 21 30
+	char 3: 1518 757 21 29
+	char 4: 1549 758 21 30
+	char 5: 1571 760 20 29
+	char 6: 1592 761 20 29
+	char 7: 1613 762 20 29

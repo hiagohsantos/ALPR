@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 855 194 241 647
+	type: motorcycle
+	make: Honda
+	model: CG
+	year: 2006
+plate: AOI-1778
+position_plate: 358 270 85 60
+	char 1: 959 591 14 21
+	char 2: 981 591 14 19
+	char 3: 1007 591 6 18
+	char 4: 961 611 5 22
+	char 5: 972 611 15 22
+	char 6: 989 610 15 22
+	char 7: 1007 610 14 19

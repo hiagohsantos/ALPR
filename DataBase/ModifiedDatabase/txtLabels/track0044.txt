@@ -1,0 +1,15 @@
+camera: iPhone 7 Plus
+position_vehicle: 742 476 319 256
+	type: car
+	make: Hyundai
+	model: Elantra
+	year: 2011
+plate: BEM-2418
+position_plate: 361 286 79 28
+	char 1: 873 583 8 13
+	char 2: 883 583 8 13
+	char 3: 893 583 8 13
+	char 4: 907 583 9 13
+	char 5: 916 583 9 14
+	char 6: 929 584 3 13
+	char 7: 936 584 8 12

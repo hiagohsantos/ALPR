@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 823 329 127 321
+	type: motorcycle
+	make: Honda
+	model: CG
+	year: 2013
+plate: AWZ-7648
+position_plate: 859 520 43 33
+	char 1: 864 527 10 12
+	char 2: 876 527 9 12
+	char 3: 886 528 10 11
+	char 4: 863 539 8 12
+	char 5: 871 539 9 12
+	char 6: 880 539 8 12
+	char 7: 888 539 9 12

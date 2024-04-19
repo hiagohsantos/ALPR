@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 747 241 253 225
+	type: car
+	make: Volkswagen
+	model: Parati
+	year: 2010
+plate: ASN-3296
+position_plate: 838 353 71 23
+	char 1: 841 361 9 12
+	char 2: 850 361 8 12
+	char 3: 858 361 10 12
+	char 4: 871 361 8 13
+	char 5: 880 361 8 13
+	char 6: 888 361 9 13
+	char 7: 898 361 7 12

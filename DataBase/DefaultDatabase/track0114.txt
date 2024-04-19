@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 653 436 398 332
+	type: car
+	make: GM Chevrolet
+	model: Astra
+	year: 2010
+plate: ASF-5742
+position_plate: 802 646 102 33
+	char 1: 807 658 12 18
+	char 2: 819 658 13 18
+	char 3: 832 657 12 20
+	char 4: 850 658 13 19
+	char 5: 862 658 12 19
+	char 6: 874 658 12 19
+	char 7: 886 659 13 19

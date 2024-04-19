@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 376 339 589 433
+	type: car
+	make: Fiat
+	model: Siena
+	year: 2012
+plate: AWL-4456
+position_plate: 329 275 143 50
+	char 1: 544 649 15 24
+	char 2: 561 648 14 24
+	char 3: 577 648 14 23
+	char 4: 601 647 15 23
+	char 5: 617 647 15 24
+	char 6: 633 647 15 23
+	char 7: 649 646 15 23

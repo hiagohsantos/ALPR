@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 917 319 125 342
+	type: motorcycle
+	make: Honda
+	model: CG
+	year: 2001
+plate: AAW-9529
+position_plate: 936 519 45 31
+	char 1: 945 527 6 9
+	char 2: 955 527 6 9
+	char 3: 965 528 7 9
+	char 4: 942 536 7 9
+	char 5: 950 536 6 10
+	char 6: 957 536 7 10
+	char 7: 965 537 7 10

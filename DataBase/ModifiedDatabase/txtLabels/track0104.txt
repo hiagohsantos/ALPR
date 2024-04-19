@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 765 375 210 186
+	type: car
+	make: Renault
+	model: Clio
+	year: 2000
+plate: APL-0100
+position_plate: 372 291 56 19
+	char 1: 848 465 6 11
+	char 2: 854 465 7 11
+	char 3: 861 466 7 11
+	char 4: 871 466 7 10
+	char 5: 879 466 4 11
+	char 6: 884 466 8 11
+	char 7: 892 466 6 11

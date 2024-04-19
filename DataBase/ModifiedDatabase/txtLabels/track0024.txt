@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 691 417 280 234
+	type: car
+	make: Mitsubishi
+	model: Lancer
+	year: 2012
+plate: AVM-2665
+position_plate: 366 289 69 23
+	char 1: 804 595 7 12
+	char 2: 811 595 8 12
+	char 3: 819 595 8 12
+	char 4: 831 595 8 13
+	char 5: 839 595 8 12
+	char 6: 847 595 7 12
+	char 7: 854 595 8 12

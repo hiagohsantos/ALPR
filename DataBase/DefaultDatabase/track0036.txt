@@ -1,0 +1,15 @@
+camera: Huawei P9 Lite
+position_vehicle: 658 165 536 570
+	type: car
+	make: Mercedes-Benz
+	model: Marcopolo Torino
+	year: 2008
+plate: AQR-9474
+position_plate: 886 576 89 27
+	char 1: 892 584 9 14
+	char 2: 903 585 9 12
+	char 3: 913 585 10 12
+	char 4: 928 585 10 12
+	char 5: 939 586 9 12
+	char 6: 949 586 10 12
+	char 7: 959 587 10 11

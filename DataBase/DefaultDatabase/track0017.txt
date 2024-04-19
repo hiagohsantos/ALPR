@@ -1,0 +1,15 @@
+camera: GoPro Hero4 Silver
+position_vehicle: 565 285 283 270
+	type: car
+	make: Citroen
+	model: Jumper
+	year: 2014
+plate: AYK-4028
+position_plate: 655 427 53 19
+	char 1: 658 433 6 11
+	char 2: 664 433 6 11
+	char 3: 670 433 7 11
+	char 4: 680 434 5 10
+	char 5: 686 434 6 10
+	char 6: 692 434 7 10
+	char 7: 699 434 6 10
