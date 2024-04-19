@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from utils import textUtils
+from utils import text_utils
 
 
 class ToplevelWindow(ctk.CTkToplevel):
