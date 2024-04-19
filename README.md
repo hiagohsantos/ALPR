@@ -37,4 +37,4 @@ To train the model, the script contained in the `Model-Maker` folder can be used
 
 ## Thesis
 
-To get more details about the work and the system, please refer to the Monography folder
+To get more details about the work and the system, please refer to the `Monography` folder
