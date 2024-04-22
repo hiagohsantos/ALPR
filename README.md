@@ -19,7 +19,7 @@ Para efetuar o treinamento do modelo, o script contido na pasta `Model-Maker` po
 
 ## Monografia
 
-Para mais detalhes sobre o trabalho e o sistema, consulte a pasta `Monography`.
+Para mais detalhes sobre o trabalho e o sistema, consulte a monografia disponivel na pasta `Monography`.
 
 # Automated License Plate Recognition (ALPR) System Documentation (EN-US)
 
@@ -43,4 +43,4 @@ To train the model, the script contained in the `Model-Maker` folder can be used
 
 ## Thesis
 
-To get more details about the work and the system, please refer to the `Monography` folder
+For further details about the work and the system, please refer to the monograph available in the 'Monography' folder.
