@@ -5,7 +5,7 @@ Este sistema foi desenvolvido para o trabalho do conclusão de curso de Engenhar
 
 ## Descrição
 
-O sistema utiliza a biblioteca TensorFlow Lite para realizar a detecção de placas automotivas em imagens e a biblioteca TesseractOCR para extrair os textos dessas imagens. Além disso, implementa algoritmos de correção e cálculo de similaridade de caracteres para os códigos detectados pelo OCR.
+O sistema utiliza a biblioteca TensorFlow Lite para realizar a detecção de placas automotivas em imagens e a biblioteca TesseractOCR/serviço em nuvem Vision AI para extrair os textos dessas imagens. Além disso, implementa algoritmos de processamento de imagem, limiarização e correção de inclinação, juntamente com algoritimos de correção de códigos e calculo de similaridade. O sistema foi feito para operar sobre um Raspberry Pi 3B+.
 
 ## Diagrama do Sistema
 
@@ -25,9 +25,11 @@ Para mais detalhes sobre o trabalho e o sistema, consulte a pasta `Monography`.
 
 This system was developed as the final project for the Electronic and Telecommunications Engineering course at the Federal University of Uberlândia.
 
+![image](https://github.com/hiagohsantos/ALPR/assets/98746083/ac3ee790-0f4f-408f-b828-2fa520f95bde)
+
 ## Description
 
-The system uses the TensorFlow Lite library to perform license plate detection in images and the TesseractOCR library to extract text from these images. Additionally, it implements algorithms for character correction and similarity calculation for the codes detected by the OCR.
+The system uses the TensorFlow Lite library to perform automatic license plate detection in images and the TesseractOCR/cloud service Vision AI library to extract text from these images. Additionally, it implements image processing algorithms, thresholding, and skew correction, along with code correction algorithms and similarity calculation. The system was designed to operate on a Raspberry Pi 3B+.
 
 ## System Diagram
 
