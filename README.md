@@ -1,5 +1,6 @@
 # Documentação do sistema de Deteção Automática de Placas Automotivas (ALPR) (PT-BR)
-Este sistema foi desenvolvido para o trabalho do conclusão de curso de Engenharia Eletrônica e de Telecomunicações da UYniversidade Federal de Uberlândia.
+Este sistema foi desenvolvido para o trabalho do conclusão de curso de Engenharia Eletrônica e de Telecomunicações da Universidade Federal de Uberlândia.
+
 ![image](https://github.com/hiagohsantos/ALPR/assets/98746083/975d5197-7e46-441d-b6e4-dc3361ca2410)
 
 ## Descrição
