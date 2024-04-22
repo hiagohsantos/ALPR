@@ -1,4 +1,6 @@
-# PT-BR
+# Documentação do sistema de Deteção Automática de Placas Automotivas (ALPR) (PT-BR)
+Este sistema foi desenvolvido para o trabalho do conclusao de curso de Engenharia Eletronica e de Telecomunicações da UYniversidade Federal de Uberlândia.
+
 ## Descrição
 
 O sistema utiliza a biblioteca TensorFlow Lite para realizar a detecção de placas automotivas em imagens e a biblioteca TesseractOCR para extrair os textos dessas imagens. Além disso, implementa algoritmos de correção e cálculo de similaridade de caracteres para os códigos detectados pelo OCR.
@@ -16,8 +18,8 @@ Para efetuar o treinamento do modelo, o script contido na pasta `Model-Maker` po
 ## Monografia
 
 Para mais detalhes sobre o trabalho e o sistema, consulte a pasta `Monography`.
-# EN-US
-# ALPR System Documentation
+
+# ALPR System Documentation (EN-US)
 
 This system was developed as the final project for the Electronic and Telecommunications Engineering course at the Federal University of Uberlândia.
 
