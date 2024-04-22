@@ -19,7 +19,7 @@ Para efetuar o treinamento do modelo, o script contido na pasta `Model-Maker` po
 
 Para mais detalhes sobre o trabalho e o sistema, consulte a pasta `Monography`.
 
-# ALPR System Documentation (EN-US)
+# Automated License Plate Recognition (ALPR) System Documentation (EN-US)
 
 This system was developed as the final project for the Electronic and Telecommunications Engineering course at the Federal University of Uberlândia.
 
