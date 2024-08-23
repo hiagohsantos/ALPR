@@ -1,7 +1,7 @@
 --> RaspBerry
-        -> Usuario: pi
-        -> Senha: 123
-        -> Caminho: pi@raspberrypi
+        -> Usuario: 
+        -> Senha: 
+        -> Caminho: 
 
 
 -> Ambiente virtual:
